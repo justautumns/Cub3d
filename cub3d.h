@@ -1,0 +1,47 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/26 16:12:28 by mehmeyil          #+#    #+#             */
+/*   Updated: 2024/05/27 20:10:33 by mehmeyil         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+
+#ifndef CUB3D_H
+#define CUB3D_H
+
+# include "./libft/libft.h"
+# include <mlx.h>
+# include <X11/keysym.h>
+# include <stdio.h>
+# include <math.h>
+# include <X11/X.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <fcntl.h>
+# include <string.h>
+# include <stdbool.h>
+
+typedef struct s_data
+{
+	void	*img;
+	char	*adress;
+	int		bits;
+	int		lenght;
+	int		endian;
+}	t_data;
+
+# ifndef BUFFER_SIZE
+# define BUFFER_SIZE 1024
+# endif
+
+
+// PARSING PART
+
+char	*get_next_line(int fd);
+
+#endif
