@@ -3,43 +3,45 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mehmeyil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 20:07:29 by mehmeyil          #+#    #+#             */
-/*   Updated: 2024/05/27 20:09:26 by mehmeyil         ###   ########.fr       */
+/*   Updated: 2024/05/28 13:53:54 by mehmeyil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int	ft_str_length(char *string)
-{
-	int	index;
 
-	index = 0;
-	while (string[index] != '\0')
-		index++;
-	return (index);
+int	ft_strlen(char *str)
+{
+	int	i;
+
+	if (!str)
+		return (0);
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
 }
-
-char	*ft_str_duplicate(char *string)
+char	*ft_strdup(char *str)
 {
-	int		index;
-	int		length;
-	char	*duplicate;
+	int		i;
+	int		m;
+	char	*tmp;
 
-	length = ft_str_length(string);
-	index = 0;
-	duplicate = (char *)malloc(sizeof(char) * length + 1);
-	if (!duplicate)
+	m = ft_strlen(str) + 1;
+	tmp = (char *) malloc(sizeof(char) * m);
+	if (!tmp)
 		return (NULL);
-	while (string[index] != '\0')
+	i = 0;
+	while (str[i])
 	{
-		duplicate[index] = string[index];
-		index++;
+		tmp[i] = str[i];
+		i++;
 	}
-	duplicate[index] = '\0';
-	return (duplicate);
+	tmp[i] = '\0';
+	return (tmp);
 }
 
 char	*get_next_line(int fd)
@@ -63,5 +65,5 @@ char	*get_next_line(int fd)
 	if (n < 0 || (n == 0 && index == 0))
 		return (NULL);
 	buffer[index] = '\0';
-	return (ft_str_duplicate(buffer));
+	return (ft_strdup(buffer));
 }
