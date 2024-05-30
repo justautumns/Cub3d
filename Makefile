@@ -7,7 +7,8 @@ RM = rm -rf
 INCLUDE = -I./libft -I./usr/include
 SRCS =	main.c \
 		./parsing/arguments.c \
-		./parsing/get_next_line.c
+		./parsing/get_next_line.c \
+		./parsing/parse_map.c
 OBJS = $(SRCS:%.c=%.o)
 all: $(NAME)
 $(NAME): $(OBJS)

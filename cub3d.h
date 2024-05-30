@@ -6,7 +6,7 @@
 /*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 16:12:28 by mehmeyil          #+#    #+#             */
-/*   Updated: 2024/05/30 17:04:41 by mehmeyil         ###   ########.fr       */
+/*   Updated: 2024/05/30 20:06:10 by mehmeyil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,48 @@
 # include <fcntl.h>
 # include <string.h>
 # include <stdbool.h>
+# define WINDOW_WIDTH 1080
+# define WINDOW_HEIGHT 720
+# define TILE_SIZE 64
 
-typedef struct s_data
+typedef struct s_texture
 {
-	void	*img;
-	char	*adress;
-	int		bits;
-	int		lenght;
-	int		endian;
-}	t_data;
+	char	*north;
+	char	*south;
+	char	*west;
+	char	*east;
+	void	*img_north;
+	void	*img_south;
+	void	*img_west;
+	void	*img_east;
+}	t_texture;
+
+typedef struct s_colors
+{
+	int	floor;
+	int	ceiling;
+}	t_colors;
+
+typedef struct s_map
+{
+	char	**map_data;
+	int		width;
+	int		height;
+}	t_map;
+
+typedef struct s_game
+{
+	void		*mlx;
+	void		*win;
+	t_texture	textures;
+	t_colors	colors;
+	t_map		map;
+}	t_game;
 
 // PARSING PART
 char	*get_next_line(int fd);
 int		arg_check(char *str);
-
+int		texture_check(char *str);
+int		parse_color(char *str);
+char	*get_textures_path(char *str);
 #endif

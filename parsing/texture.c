@@ -1,34 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   arguments.c                                        :+:      :+:    :+:   */
+/*   texture.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/27 20:02:35 by mehmeyil          #+#    #+#             */
-/*   Updated: 2024/05/30 19:39:51 by mehmeyil         ###   ########.fr       */
+/*   Created: 2024/05/30 20:03:04 by mehmeyil          #+#    #+#             */
+/*   Updated: 2024/05/30 20:06:02 by mehmeyil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int	arg_check(char *str)
+char	*get_textures_path(char *str)
 {
-	int	i;
+	char	**textures;
+	char	*path;
+	int		m;
 
-	i = ft_strlen(str);
-	if (str[i - 4] != '.' || str[i - 3] != 'c'
-		|| str[i - 2] != 'u' || str[i - 1] != 'b')
-		return (1);
-	return (0);
-}
-int	texture_check(char *str)
-{
-	int	i;
-
-	i = ft_strlen(str);
-	if (str[i - 4] != '.' || str[i - 3] != 'x'
-		|| str[i - 2] != 'p' || str[i - 1] != 'm')
-		return (1);
-	return (0);
+	textures = ft_split(str, ' ');
+	path = NULL;
+	m = 0;
+	if (textures[1])
+		path = ft_strdup(textures[1]);
+	while (textures[m++])
+		free(textures[m]);
+	free(textures);
+	return (path);
 }

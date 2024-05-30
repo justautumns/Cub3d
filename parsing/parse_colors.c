@@ -1,34 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   arguments.c                                        :+:      :+:    :+:   */
+/*   parse_colors.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/27 20:02:35 by mehmeyil          #+#    #+#             */
-/*   Updated: 2024/05/30 19:39:51 by mehmeyil         ###   ########.fr       */
+/*   Created: 2024/05/30 19:54:11 by mehmeyil          #+#    #+#             */
+/*   Updated: 2024/05/30 20:01:44 by mehmeyil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int	arg_check(char *str)
+int	parse_color(char *str)
 {
-	int	i;
+	char	**colors;
+	char	**rgb;
+	int		color;
+	int		m;
 
-	i = ft_strlen(str);
-	if (str[i - 4] != '.' || str[i - 3] != 'c'
-		|| str[i - 2] != 'u' || str[i - 1] != 'b')
-		return (1);
-	return (0);
-}
-int	texture_check(char *str)
-{
-	int	i;
-
-	i = ft_strlen(str);
-	if (str[i - 4] != '.' || str[i - 3] != 'x'
-		|| str[i - 2] != 'p' || str[i - 1] != 'm')
-		return (1);
-	return (0);
+	colors = ft_split(str, ' ');
+	color = 0;
+	m = 0;
+	if (colors[1])
+	{
+		rgb = ft_split(colors[1], ',');
+		if (rgb[0] && rgb[1] && rgb[2])
+			color = (ft_atoi(rgb[0]) << 16) | (ft_atoi(rgb[1]) << 8 | ft_atoi(rgb[2]));
+		while (rgb[m++])
+			free(rgb[m]);
+		free(rgb);
+	}
+	m = 0;
+	while (colors[m++])
+		free(colors[m]);
+	free(colors);
+	return (color);
 }
