@@ -6,13 +6,16 @@
 /*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 16:12:28 by mehmeyil          #+#    #+#             */
-/*   Updated: 2024/05/27 20:10:33 by mehmeyil         ###   ########.fr       */
+/*   Updated: 2024/05/30 17:04:41 by mehmeyil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #ifndef CUB3D_H
-#define CUB3D_H
+# define CUB3D_H
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1024
+# endif
 
 # include "./libft/libft.h"
 # include <mlx.h>
@@ -35,13 +38,8 @@ typedef struct s_data
 	int		endian;
 }	t_data;
 
-# ifndef BUFFER_SIZE
-# define BUFFER_SIZE 1024
-# endif
-
-
 // PARSING PART
-
 char	*get_next_line(int fd);
+int		arg_check(char *str);
 
 #endif

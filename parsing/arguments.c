@@ -6,9 +6,19 @@
 /*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 20:02:35 by mehmeyil          #+#    #+#             */
-/*   Updated: 2024/05/27 20:06:12 by mehmeyil         ###   ########.fr       */
+/*   Updated: 2024/05/30 17:09:08 by mehmeyil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
+int	arg_check(char *str)
+{
+	int	i;
+
+	i = ft_strlen(str);
+	if (str[i - 4] != '.' || str[i - 3] != 'c'
+		|| str[i - 2] != 'u' || str[i - 1] != 'b')
+		return (1);
+	return (0);
+}

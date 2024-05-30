@@ -5,7 +5,9 @@ MLXFLAGS = -L ./mlx -lmlx -Ilmlx -lXext -lX11
 LIBFT = ./libft/libft.a
 RM = rm -rf
 INCLUDE = -I./libft -I./usr/include
-SRCS =	main.c
+SRCS =	main.c \
+		./parsing/arguments.c \
+		./parsing/get_next_line.c
 OBJS = $(SRCS:%.c=%.o)
 all: $(NAME)
 $(NAME): $(OBJS)

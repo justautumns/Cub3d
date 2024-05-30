@@ -3,46 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mehmeyil <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 20:07:29 by mehmeyil          #+#    #+#             */
-/*   Updated: 2024/05/28 13:53:54 by mehmeyil         ###   ########.fr       */
+/*   Updated: 2024/05/30 17:08:34 by mehmeyil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
-
-int	ft_strlen(char *str)
-{
-	int	i;
-
-	if (!str)
-		return (0);
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
-char	*ft_strdup(char *str)
-{
-	int		i;
-	int		m;
-	char	*tmp;
-
-	m = ft_strlen(str) + 1;
-	tmp = (char *) malloc(sizeof(char) * m);
-	if (!tmp)
-		return (NULL);
-	i = 0;
-	while (str[i])
-	{
-		tmp[i] = str[i];
-		i++;
-	}
-	tmp[i] = '\0';
-	return (tmp);
-}
 
 char	*get_next_line(int fd)
 {
