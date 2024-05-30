@@ -6,7 +6,7 @@
 /*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 16:12:28 by mehmeyil          #+#    #+#             */
-/*   Updated: 2024/05/30 20:06:10 by mehmeyil         ###   ########.fr       */
+/*   Updated: 2024/05/30 21:20:23 by mehmeyil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,7 @@ int		arg_check(char *str);
 int		texture_check(char *str);
 int		parse_color(char *str);
 char	*get_textures_path(char *str);
+void	parse_cub_file(char *path, t_game *game);
+void	initialize(t_game *game);
+void	init_game(t_game *game);
 #endif

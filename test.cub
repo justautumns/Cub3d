@@ -1,7 +1,7 @@
-NO ./textures/deneme.xpm
-SO ./textures/deneme.xpm
-WE ./textures/deneme.xpm
-EA ./textures/deneme.xpm
+NO ./textures/deneme0.xpm
+SO ./textures/deneme1.xpm
+WE ./textures/deneme2.xpm
+EA ./textures/deneme3.xpm
 
 F 220,100,0
 C 225,30,0

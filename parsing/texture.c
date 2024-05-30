@@ -6,7 +6,7 @@
 /*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 20:03:04 by mehmeyil          #+#    #+#             */
-/*   Updated: 2024/05/30 20:06:02 by mehmeyil         ###   ########.fr       */
+/*   Updated: 2024/05/30 21:13:33 by mehmeyil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ char	*get_textures_path(char *str)
 	m = 0;
 	if (textures[1])
 		path = ft_strdup(textures[1]);
+	if (texture_check(path) == 1)
+		return ("Error: Path is not valid\n");
 	while (textures[m++])
 		free(textures[m]);
 	free(textures);

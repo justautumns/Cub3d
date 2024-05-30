@@ -6,7 +6,7 @@
 /*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 19:54:11 by mehmeyil          #+#    #+#             */
-/*   Updated: 2024/05/30 20:01:44 by mehmeyil         ###   ########.fr       */
+/*   Updated: 2024/05/30 21:05:29 by mehmeyil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ int	parse_color(char *str)
 		free(rgb);
 	}
 	m = 0;
-	while (colors[m++])
-		free(colors[m]);
-	free(colors);
+	// while (colors[m++])
+	// 	free(colors[m]);
+	// free(colors);
 	return (color);
 }
