@@ -6,7 +6,7 @@
 /*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 20:51:30 by mehmeyil          #+#    #+#             */
-/*   Updated: 2024/05/30 21:03:14 by mehmeyil         ###   ########.fr       */
+/*   Updated: 2024/05/31 18:36:17 by mehmeyil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@ void	initialize(t_game *game)
 	game->textures.img_west = NULL;
 	game->textures.img_north = NULL;
 	game->textures.img_south = NULL;
+	game->player.x = 1.5;
+	game->player.y = 1.5;
+	game->player.dir_x = -1.0;
+	game->player.dir_y = 0.0;
+	game->player.plane_x = 0.0;
+	game->player.plane_y = 0.66;
 }
 void	init_game(t_game *game)
 {

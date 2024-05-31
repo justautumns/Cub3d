@@ -6,7 +6,7 @@
 /*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 18:36:34 by mehmeyil          #+#    #+#             */
-/*   Updated: 2024/05/30 21:06:54 by mehmeyil         ###   ########.fr       */
+/*   Updated: 2024/05/31 18:18:34 by mehmeyil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ int	find_map_height(int fd)
 	{
 		if (tmp[0] != '\0' && tmp[0] != '\n')
 			height++;
-		//free(tmp);
+		free(tmp);
+		tmp = get_next_line(fd);
 	}
 	return (height);
 }
@@ -39,7 +40,7 @@ void	parse_map(int fd, t_game *game, int start_line)
 	while (i < start_line)
 	{
 		line = get_next_line(fd);
-		//free(line);
+		free(line);
 		i++;
 	}
 	i = 0;
@@ -51,7 +52,8 @@ void	parse_map(int fd, t_game *game, int start_line)
 			game->map.map_data[i] = ft_strdup(line);
 			i++;
 		}
-		//free(line);
+		free(line);
+		line = get_next_line(fd);
 	}
 	game->map.map_data[i] = NULL;
 }
@@ -96,8 +98,9 @@ void	parse_cub_file(char *path, t_game *game)
 	while (tmp != NULL)
 	{
 		parse_line(tmp, game, &map_start_line, line_num);
-		//free(tmp);
+		free(tmp);
 		line_num++;
+		tmp = get_next_line(fd);
 	}
 	close (fd);
 	if (map_start_line != -1)

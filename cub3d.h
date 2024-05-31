@@ -6,7 +6,7 @@
 /*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 16:12:28 by mehmeyil          #+#    #+#             */
-/*   Updated: 2024/05/30 21:20:23 by mehmeyil         ###   ########.fr       */
+/*   Updated: 2024/05/31 18:32:08 by mehmeyil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,16 @@ typedef struct s_map
 	int		height;
 }	t_map;
 
+typedef struct s_player
+{
+	double	x;
+	double	y;
+	double	dir_x;
+	double	dir_y;
+	double	plane_x;
+	double	plane_y;
+}	t_player;
+
 typedef struct s_game
 {
 	void		*mlx;
@@ -64,6 +74,7 @@ typedef struct s_game
 	t_texture	textures;
 	t_colors	colors;
 	t_map		map;
+	t_player	player;
 }	t_game;
 
 // PARSING PART
@@ -75,4 +86,10 @@ char	*get_textures_path(char *str);
 void	parse_cub_file(char *path, t_game *game);
 void	initialize(t_game *game);
 void	init_game(t_game *game);
+
+// RENDERING
+int	render_next_frame(t_game *game);
+
+// PLAYER (RAYCAST FUNCTIONS)
+int	key_press(int keycode, t_game *game);
 #endif

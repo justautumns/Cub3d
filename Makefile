@@ -1,7 +1,7 @@
 NAME = cub3d
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
-MLXFLAGS = -L ./mlx -lmlx -Ilmlx -lXext -lX11
+MLXFLAGS = -L ./mlx -lmlx -lXext -lX11 -lm -lz -L/usr/include -Imlx
 LIBFT = ./libft/libft.a
 RM = rm -rf
 INCLUDE = -I./libft -I./usr/include
@@ -11,13 +11,14 @@ SRCS =	main.c \
 		./parsing/parse_map.c \
 		./parsing/parse_colors.c \
 		./parsing/init_game.c \
-		./parsing/texture.c
+		./parsing/texture.c \
+		./rendering/rendering.c \
+		./raycasting/player.c
 OBJS = $(SRCS:%.c=%.o)
 all: $(NAME)
 $(NAME): $(OBJS)
 		$(MAKE) -C ./libft
 		$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(MLXFLAGS) -o $(NAME)
-bonus: all
 
 .c.o:
 	$(CC) -c $(CFLAGS) $< -o $@ $(INCLUDE)
