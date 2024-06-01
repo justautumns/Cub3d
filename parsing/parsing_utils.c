@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 19:09:16 by mehmeyil          #+#    #+#             */
-/*   Updated: 2024/06/01 20:00:08 by mehmeyil         ###   ########.fr       */
+/*   Updated: 2024/06/01 20:29:21 by mtrojano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int count_tabs(char *line)
 	while (line[i])
 	{
 		if (line[i] == '\t')
-		count_tabs++;
+			count_tabs++;
 		i++;
 	}
 	if (count_tabs == 0)
@@ -44,19 +44,22 @@ char	*check_tabs(char *line)
 		return (NULL);
 	i = 0;
 	m = 0;
-	s = 4;
 	while (line[i])
 	{
-		if (line[i] == '\t')
+		s = 4;
+		if (line[i] != '\t')
+		{
+			tmp[m] = line[i];
+			m++;
+			i++;
+		}
+		else
 		{
 			while (s--)
 				tmp[m++] = 'c';
 			i += 1;
 		}
-		tmp[m] = line[i];
-		m++;
-		i++;
 	}
 	tmp[m] = '\0';
-	return (tmp);
+	return (free(line), tmp);
 }

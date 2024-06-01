@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 18:36:34 by mehmeyil          #+#    #+#             */
-/*   Updated: 2024/06/01 20:01:56 by mehmeyil         ###   ########.fr       */
+/*   Updated: 2024/06/01 20:40:08 by mtrojano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,22 +44,18 @@ void	parse_map(int fd, t_game *game, int start_line)
 		i++;
 	}
 	i = 0;
-	line = get_next_line(fd);
-	char *aa = NULL;
 	while (line != NULL)
 	{
 		if (line[0] != '\0' && line[0] != '\n')
 		{
 			line = remove_nl_end(line);
-			aa = check_tabs(line);
+			line = check_tabs(line);
 			if (!line)
 				return ;
-			printf("%s\n", aa);
-			game->map.map_data[i] = ft_strdup(aa);
+			game->map.map_data[i] = ft_strdup(line);
 			i++;
 		}
 		free(line);
-		free(aa);
 		line = get_next_line(fd);
 	}
 	game->map.map_data[i] = NULL;
@@ -67,7 +63,6 @@ void	parse_map(int fd, t_game *game, int start_line)
 
 void	parse_line(char *line, t_game *game, int *map_start_line, int line_num)
 {
-
 	if (ft_strncmp(line, "NO ",3) == 0)
 		game->textures.north = get_textures_path(line);
 	else if (ft_strncmp(line, "SO ", 3) == 0)
