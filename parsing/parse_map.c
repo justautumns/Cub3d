@@ -3,31 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 18:36:34 by mehmeyil          #+#    #+#             */
-/*   Updated: 2024/06/01 04:09:49 by mtrojano         ###   ########.fr       */
+/*   Updated: 2024/06/01 20:01:56 by mehmeyil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int	find_map_height(int fd)
-{
-	char	*tmp;
-	int		height;
+// int	find_map_height(int fd)
+// {
+// 	char	*tmp;
+// 	int		height;
 
-	height = 0;
-	tmp = get_next_line(fd);
-	while (tmp != NULL)
-	{
-		if (tmp[0] != '\0' && tmp[0] != '\n')
-			height++;
-		free(tmp);
-		tmp = get_next_line(fd);
-	}
-	return (height);
-}
+// 	height = 0;
+// 	tmp = get_next_line(fd);
+// 	while (tmp != NULL)
+// 	{
+// 		if (tmp[0] != '\0' && tmp[0] != '\n')
+// 			height++;
+// 		free(tmp);
+// 		tmp = get_next_line(fd);
+// 	}
+// 	return (height);
+// }
 void	parse_map(int fd, t_game *game, int start_line)
 {
 	int		i;
@@ -45,17 +45,21 @@ void	parse_map(int fd, t_game *game, int start_line)
 	}
 	i = 0;
 	line = get_next_line(fd);
+	char *aa = NULL;
 	while (line != NULL)
 	{
 		if (line[0] != '\0' && line[0] != '\n')
 		{
 			line = remove_nl_end(line);
+			aa = check_tabs(line);
 			if (!line)
 				return ;
-			game->map.map_data[i] = ft_strdup(line);
+			printf("%s\n", aa);
+			game->map.map_data[i] = ft_strdup(aa);
 			i++;
 		}
 		free(line);
+		free(aa);
 		line = get_next_line(fd);
 	}
 	game->map.map_data[i] = NULL;

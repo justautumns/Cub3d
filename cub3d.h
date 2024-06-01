@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 16:12:28 by mehmeyil          #+#    #+#             */
-/*   Updated: 2024/06/01 04:29:34 by mtrojano         ###   ########.fr       */
+/*   Updated: 2024/06/01 19:09:50 by mehmeyil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ int		parse_cub_file(char *path, t_game *game);
 void	initialize(t_game *game);
 void	init_game(t_game *game);
 char	*remove_nl_end(char *line);
+char	*check_tabs(char *line);
 
 // RENDERING
 int	render_next_frame(t_game *game);

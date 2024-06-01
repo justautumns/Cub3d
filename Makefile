@@ -13,7 +13,8 @@ SRCS =	main.c \
 		./parsing/init_game.c \
 		./parsing/texture.c \
 		./rendering/rendering.c \
-		./raycasting/player.c
+		./raycasting/player.c \
+		./parsing/parsing_utils.c
 OBJS = $(SRCS:%.c=%.o)
 all: $(NAME)
 $(NAME): $(OBJS)
