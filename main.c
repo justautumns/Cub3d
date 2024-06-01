@@ -3,14 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 16:22:11 by mehmeyil          #+#    #+#             */
-/*   Updated: 2024/05/31 18:32:37 by mehmeyil         ###   ########.fr       */
+/*   Updated: 2024/06/01 04:18:58 by mtrojano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	print_map(char **map)
+{
+	int x = 0;
+	int y = 0;
+
+	if (!map)
+		return ;
+	while (map[y])
+	{
+		x = 0;
+		while (map[y][x])
+		{
+			printf("%c", map[y][x]);
+			x++;
+		}
+		printf("\n");
+		y++;
+	}
+}
 
 int main(int ac, char **av)
 {
@@ -23,6 +43,7 @@ int main(int ac, char **av)
 	initialize(&game);
 	parse_cub_file(av[1], &game);
 	init_game(&game);
+	print_map(game.map.map_data);
 	mlx_loop_hook(game.mlx, render_next_frame, &game);
 	mlx_key_hook(game.win, key_press, &game);
 	mlx_loop(game.mlx);

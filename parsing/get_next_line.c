@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 20:07:29 by mehmeyil          #+#    #+#             */
-/*   Updated: 2024/05/30 17:08:34 by mehmeyil         ###   ########.fr       */
+/*   Updated: 2024/06/01 04:09:55 by mtrojano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,23 @@ char	*get_next_line(int fd)
 		return (NULL);
 	buffer[index] = '\0';
 	return (ft_strdup(buffer));
+}
+
+char	*remove_nl_end(char *line)
+{
+	int		i;
+	char	*tmp;
+
+	i = 0;
+	tmp = malloc(ft_strlen(line));
+	if (!tmp)
+		return (NULL);
+	while (line[i] && line[i] != '\n')
+	{
+		tmp[i] = line[i];
+		i++;
+	}
+	tmp[i] = '\0';
+	free(line);
+	return (tmp);
 }

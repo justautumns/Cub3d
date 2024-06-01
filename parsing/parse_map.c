@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 18:36:34 by mehmeyil          #+#    #+#             */
-/*   Updated: 2024/05/31 18:18:34 by mehmeyil         ###   ########.fr       */
+/*   Updated: 2024/06/01 04:09:49 by mtrojano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,9 @@ void	parse_map(int fd, t_game *game, int start_line)
 	{
 		if (line[0] != '\0' && line[0] != '\n')
 		{
+			line = remove_nl_end(line);
+			if (!line)
+				return ;
 			game->map.map_data[i] = ft_strdup(line);
 			i++;
 		}
@@ -81,7 +84,7 @@ void	parse_line(char *line, t_game *game, int *map_start_line, int line_num)
 	}
 }
 
-void	parse_cub_file(char *path, t_game *game)
+int	parse_cub_file(char *path, t_game *game)
 {
 	int		fd;
 	char	*tmp;
@@ -90,13 +93,16 @@ void	parse_cub_file(char *path, t_game *game)
 
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
-		return ;
+		return (-1);
 	line_num = 0;
 	map_start_line = -1;
 	game->map.height = 0;
 	tmp = get_next_line(fd);
 	while (tmp != NULL)
 	{
+		tmp = remove_nl_end(tmp);
+		if (!tmp)
+			return (-1);
 		parse_line(tmp, game, &map_start_line, line_num);
 		free(tmp);
 		line_num++;
@@ -109,4 +115,5 @@ void	parse_cub_file(char *path, t_game *game)
 		parse_map(fd, game, map_start_line);
 		close(fd);
 	}
+	return (0);
 }

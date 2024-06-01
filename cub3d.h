@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 16:12:28 by mehmeyil          #+#    #+#             */
-/*   Updated: 2024/05/31 18:32:08 by mehmeyil         ###   ########.fr       */
+/*   Updated: 2024/06/01 04:29:34 by mtrojano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # include <stdbool.h>
 # define WINDOW_WIDTH 1080
 # define WINDOW_HEIGHT 720
-# define TILE_SIZE 64
+# define TILE_SIZE 40
 
 typedef struct s_texture
 {
@@ -42,6 +42,8 @@ typedef struct s_texture
 	void	*img_south;
 	void	*img_west;
 	void	*img_east;
+	int		img_width;
+	int		img_height;
 }	t_texture;
 
 typedef struct s_colors
@@ -83,9 +85,10 @@ int		arg_check(char *str);
 int		texture_check(char *str);
 int		parse_color(char *str);
 char	*get_textures_path(char *str);
-void	parse_cub_file(char *path, t_game *game);
+int		parse_cub_file(char *path, t_game *game);
 void	initialize(t_game *game);
 void	init_game(t_game *game);
+char	*remove_nl_end(char *line);
 
 // RENDERING
 int	render_next_frame(t_game *game);

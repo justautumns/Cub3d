@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 18:15:27 by mehmeyil          #+#    #+#             */
-/*   Updated: 2024/05/31 18:27:35 by mehmeyil         ###   ########.fr       */
+/*   Updated: 2024/06/01 15:17:01 by mtrojano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,25 +30,55 @@ void	draw_square(t_game *game, int x, int y, int color)
 	}
 }
 
+// void	draw_map(t_game *game)
+// {
+// 	int	x;
+// 	int	y;
+// 	int	tile_size;
+// 	int	color;
+
+// 	y = 0;
+// 	tile_size = TILE_SIZE;
+// 	while (y < game->map.height)
+// 	{
+// 		x = 0;
+// 		while (x < game->map.width)
+// 		{
+// 			if (game->map.map_data[y][x] == '1')
+// 				color = 0xFFFFFF;
+// 			else
+// 				color = 0x00000;
+// 			draw_square(game, x * tile_size, y * tile_size, color);
+// 			x++;
+// 		}
+// 		y++;
+// 	}
+// }
+
 void	draw_map(t_game *game)
 {
 	int	x;
 	int	y;
 	int	tile_size;
-	int	color;
+	//int	color;
+	int	line_len;
+	//void	*wall;
 
 	y = 0;
 	tile_size = TILE_SIZE;
-	while (y < game->map.height)
+	//wall = mlx_xpm_file_to_image(game->mlx, "./textures/deneme0.xpm", &(game->textures.img_width), &(game->textures.img_height));
+	// printf("\nheight = %d\nwidth = %d\n", game->map.height, game->map.width);
+	while (game->map.map_data[y])
 	{
 		x = 0;
-		while (x < game->map.width)
+		line_len = ft_strlen(game->map.map_data[y]);
+		while (x < line_len)
 		{
 			if (game->map.map_data[y][x] == '1')
-				color = 0xFFFFFF;
+				mlx_put_image_to_window(game->mlx, game->win, game->textures.img_north, x * tile_size, y * tile_size);
 			else
-				color = 0x00000;
-			draw_square(game, x * tile_size, y * tile_size, color);
+				mlx_put_image_to_window(game->mlx, game->win, game->textures.img_south, x * tile_size, y * tile_size);
+			//draw_square(game, x * tile_size, y * tile_size, color);
 			x++;
 		}
 		y++;
