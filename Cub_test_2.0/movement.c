@@ -1,123 +1,45 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   movement.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/20 11:44:36 by mtrojano          #+#    #+#             */
+/*   Updated: 2024/07/20 11:46:07 by mtrojano         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub.h"
 
-void	normalize_angle(float *angle)
+void	move_right(t_data *d)
 {
-	if ((*angle) > (2 * PI))
-		(*angle) -= 2 * PI;
-	else if ((*angle) < 0)
-		(*angle) += 2 * PI;
-}
+	double	angle_right;
 
-void rotate_left (t_data *d)
-{
-	// Adjust player_angle by angle_offset
-	d->player_angle -= ROTATION_SPEED;
-	// Normalize player_angle to be within 0 to 2*PI
-	normalize_angle(&d->player_angle);
-}
-
-void rotate_right (t_data *d)
-{
-	// Adjust player_angle by angle_offset
-	d->player_angle += ROTATION_SPEED;
-	// Normalize player_angle to be within 0 to 2*PI
-	normalize_angle(&d->player_angle);
-}
-
-void move_right(t_data *d)
-{
-	double angle_right = d->player_angle + (PI / 2);
+	angle_right = d->player_angle + (PI / 2);
 	d->player_x = d->player_x + MOVE_SPEED * cos(angle_right);
 	d->player_y = d->player_y + MOVE_SPEED * sin(angle_right);
 }
 
-void move_left(t_data *d)
+void	move_left(t_data *d)
 {
-	double angle_left = d->player_angle - (PI / 2);
+	double	angle_left;
+
+	angle_left = d->player_angle - (PI / 2);
 	d->player_x = d->player_x + MOVE_SPEED * cos(angle_left);
 	d->player_y = d->player_y + MOVE_SPEED * sin(angle_left);
 }
 
-void move_up (t_data *d)
+void	move_up(t_data *d)
 {
 	d->player_x = d->player_x + MOVE_SPEED * cos(d->player_angle);
 	d->player_y = d->player_y + MOVE_SPEED * sin(d->player_angle);
 }
 
-void move_down (t_data *d)
+void	move_down(t_data *d)
 {
 	d->player_x = d->player_x - MOVE_SPEED * cos(d->player_angle);
 	d->player_y = d->player_y - MOVE_SPEED * sin(d->player_angle);
-}
-
-int	validate_move(t_data *d, char c)
-{
-	int map_x;
-	int map_y;
-
-	if (c == 'w')
-	{
-		map_x = (int)(d->player_x + DIST_FROM_WALL * MOVE_SPEED * cos(d->player_angle)) / TILE_SIZE;
-		map_y = (int)(d->player_y + DIST_FROM_WALL * MOVE_SPEED * sin(d->player_angle)) / TILE_SIZE;
-		if (d->map[map_y][map_x] == '1')
-			return (-1);
-		map_x = (int)(d->player_x + DIST_FROM_WALL * MOVE_SPEED * cos(d->player_angle - (20 * DEGREE))) / TILE_SIZE; // to not pass through corners
-		map_y = (int)(d->player_y + DIST_FROM_WALL * MOVE_SPEED * sin(d->player_angle - (20 * DEGREE))) / TILE_SIZE;
-		if (d->map[map_y][map_x] == '1')
-			return (-1);
-		map_x = (int)(d->player_x + DIST_FROM_WALL * MOVE_SPEED * cos(d->player_angle + (20 * DEGREE))) / TILE_SIZE;
-		map_y = (int)(d->player_y + DIST_FROM_WALL * MOVE_SPEED * sin(d->player_angle + (20 * DEGREE))) / TILE_SIZE;
-		if (d->map[map_y][map_x] == '1')
-			return (-1);
-	}
-	if (c == 's')
-	{
-		map_x = (int)(d->player_x - DIST_FROM_WALL * MOVE_SPEED * cos(d->player_angle)) / TILE_SIZE;
-		map_y = (int)(d->player_y - DIST_FROM_WALL * MOVE_SPEED * sin(d->player_angle)) / TILE_SIZE;
-		if (d->map[map_y][map_x] == '1')
-			return (-1);
-		map_x = (int)(d->player_x - DIST_FROM_WALL * MOVE_SPEED * cos(d->player_angle - (20 * DEGREE))) / TILE_SIZE;
-		map_y = (int)(d->player_y - DIST_FROM_WALL * MOVE_SPEED * sin(d->player_angle - (20 * DEGREE))) / TILE_SIZE;
-		if (d->map[map_y][map_x] == '1')
-			return (-1);
-		map_x = (int)(d->player_x - DIST_FROM_WALL * MOVE_SPEED * cos(d->player_angle + (20 * DEGREE))) / TILE_SIZE;
-		map_y = (int)(d->player_y - DIST_FROM_WALL * MOVE_SPEED * sin(d->player_angle + (20 * DEGREE))) / TILE_SIZE;
-		if (d->map[map_y][map_x] == '1')
-			return (-1);
-	}
-	if (c == 'a')
-	{
-		double angle_left = d->player_angle - (PI / 2);
-		map_x = (int)(d->player_x + DIST_FROM_WALL * MOVE_SPEED * cos(angle_left)) / TILE_SIZE;
-		map_y = (int)(d->player_y + DIST_FROM_WALL * MOVE_SPEED * sin(angle_left)) / TILE_SIZE;
-		if (d->map[map_y][map_x] == '1')
-			return (-1);
-		map_x = (int)(d->player_x + DIST_FROM_WALL * MOVE_SPEED * cos(angle_left - (20 * DEGREE))) / TILE_SIZE; // to not pass through corners
-		map_y = (int)(d->player_y + DIST_FROM_WALL * MOVE_SPEED * sin(angle_left - (20 * DEGREE))) / TILE_SIZE;
-		if (d->map[map_y][map_x] == '1')
-			return (-1);
-		map_x = (int)(d->player_x + DIST_FROM_WALL * MOVE_SPEED * cos(angle_left + (20 * DEGREE))) / TILE_SIZE;
-		map_y = (int)(d->player_y + DIST_FROM_WALL * MOVE_SPEED * sin(angle_left + (20 * DEGREE))) / TILE_SIZE;
-		if (d->map[map_y][map_x] == '1')
-			return (-1);
-	}
-	if (c == 'd')
-	{
-		double angle_right = d->player_angle + (PI / 2);
-		map_x = (int)(d->player_x + DIST_FROM_WALL * MOVE_SPEED * cos(angle_right)) / TILE_SIZE;
-		map_y = (int)(d->player_y + DIST_FROM_WALL * MOVE_SPEED * sin(angle_right)) / TILE_SIZE;
-		if (d->map[map_y][map_x] == '1')
-			return (-1);
-		map_x = (int)(d->player_x + DIST_FROM_WALL * MOVE_SPEED * cos(angle_right - (20 * DEGREE))) / TILE_SIZE; // to not pass through corners
-		map_y = (int)(d->player_y + DIST_FROM_WALL * MOVE_SPEED * sin(angle_right - (20 * DEGREE))) / TILE_SIZE;
-		if (d->map[map_y][map_x] == '1')
-			return (-1);
-		map_x = (int)(d->player_x + DIST_FROM_WALL * MOVE_SPEED * cos(angle_right + (20 * DEGREE))) / TILE_SIZE;
-		map_y = (int)(d->player_y + DIST_FROM_WALL * MOVE_SPEED * sin(angle_right + (20 * DEGREE))) / TILE_SIZE;
-		if (d->map[map_y][map_x] == '1')
-			return (-1);
-	}
-	return (0);
 }
 
 int	handle_key_press(int keysym, t_data *d)

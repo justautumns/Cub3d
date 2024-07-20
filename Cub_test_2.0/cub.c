@@ -1,10 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/20 11:27:10 by mtrojano          #+#    #+#             */
+/*   Updated: 2024/07/20 11:54:46 by mtrojano         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub.h"
 
-char *remove_nl(char *str)
+char	*remove_nl(char *str)
 {
-	char *temp = malloc(ft_strlen(str));
-	int i = 0;
+	char	*temp;
+	int		i;
 
+	temp = malloc(ft_strlen(str));
+	i = 0;
 	while (str[i] != '\n')
 	{
 		temp[i] = str[i];
@@ -14,12 +28,14 @@ char *remove_nl(char *str)
 	return (temp);
 }
 
-void get_map(t_data *d)
+void	get_map(t_data *d)
 {
-	FILE *file = fopen("map.cub", "r+");
-	char line[100];
-	int y = 0;
+	FILE	*file;
+	char	line[100];
+	int		y;
 
+	y = 0;
+	file = fopen("map.cub", "r+");
 	d->map_max_height = 0;
 	d->map_max_width = 0;
 	d->map = malloc(1 * sizeof(char *));
@@ -82,9 +98,11 @@ void	get_player_angle(t_data *d)
 
 void	display_map(t_data *d)
 {
-	int x = 0;
-	int y = 0;
+	int	x;
+	int	y;
 
+	x = 0;
+	y = 0;
 	while (d->map[y])
 	{
 		x = 0;
@@ -119,15 +137,17 @@ void	init_textures(t_data *d)
 	d->tex->tex_endian = malloc(4 * sizeof(int));
 	while (i < 4)
 	{
-		d->tex->textures[i] = mlx_xpm_file_to_image(d->root, d->tex->tex_path[i], &d->img_x, &d->img_y);
-		d->tex->tex_data[i] = mlx_get_data_addr(d->tex->textures[i], &d->tex->tex_bpp[i], &d->tex->tex_line_len[i], &d->tex->tex_endian[i]);
+		d->tex->textures[i] = mlx_xpm_file_to_image(d->root,
+			d->tex->tex_path[i], &d->img_x, &d->img_y);
+		d->tex->tex_data[i] = mlx_get_data_addr(d->tex->textures[i],
+			&d->tex->tex_bpp[i], &d->tex->tex_line_len[i], &d->tex->tex_endian[i]);
 		i++;
 	}
 }
 
-int main()
+int	main(void)
 {
-	t_data d;
+	t_data	d;
 
 	get_map(&d);
 	get_player(&d);
@@ -139,7 +159,7 @@ int main()
 	d.window = mlx_new_window(d.root, WIN_WIDTH, WIN_HEIGHT, "cat_test");
 	init_textures(&d);
 	draw_map(&d);
-	cast_rays(&d);
+	// cast_rays(&d);
 	// mlx_put_image_to_window(d.root, d.window, d.tex->textures[0], 0, 0);
 	// mlx_put_image_to_window(d.root, d.window, d.tex->textures[1], 64, 0);
 	// mlx_put_image_to_window(d.root, d.window, d.tex->textures[2], 128, 0);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/20 11:27:29 by mtrojano          #+#    #+#             */
+/*   Updated: 2024/07/20 17:36:07 by mtrojano         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <mlx.h>
 #include <X11/keysym.h>
 #include <stdio.h>
@@ -13,7 +25,7 @@
 #define TILE_SIZE 64
 #define WIN_HEIGHT 600
 #define WIN_WIDTH 800
-#define NORTH 3 * PI / 2
+#define NORTH 3 * 3.14159265358979323846 / 2
 #define SOUTH PI / 2
 #define WEST PI
 #define EAST 2 * PI
@@ -22,7 +34,6 @@
 #define MOVE_SPEED 25.0
 #define DIST_FROM_WALL 1.5
 #define ROTATION_SPEED 5 * DEGREE
-
 
 typedef struct tex
 {
@@ -41,7 +52,6 @@ typedef struct data
 	void	*floor;
 	void	*wall;
 	void	*player;
-	void	*collectible;
 	void	*hit_point;
 	char	**map;
 	int		ceiling_color;
@@ -69,8 +79,8 @@ typedef struct data
 	int		ray_direction;
 	float	x_offset;
 	float	y_offset;
-	float	dist_H;
-	float	dist_V;
+	float	dist_h;
+	float	dist_v;
 	float	horizontal_x;
 	float	horizontal_y;
 	float	vertical_x;
@@ -78,22 +88,24 @@ typedef struct data
 	t_tex	*tex;
 }	t_data;
 
-
-
-
 void	draw_map(t_data *d);
 void	draw_player(t_data *d);
-int	handle_key_press(int keysym, t_data *d);
-void move_down (t_data *d);
-void move_up (t_data *d);
-void move_right (t_data *d);
-void move_left (t_data *d);
-void draw_player_init(t_data *d, int x, int y, int size);
+int		handle_key_press(int keysym, t_data *d);
+void	move_down(t_data *d);
+void	move_up(t_data *d);
+void	move_right(t_data *d);
+void	move_left(t_data *d);
+void	draw_player_init(t_data *d, int x, int y, int size);
 void	display_map(t_data *d);
-int	ft_strlen(char *str);
+int		ft_strlen(char *str);
 char	*ft_strdup(const char *s);
 void	free_env(char ***env);
 char	**add_to_array(char **arr, char *str);
 void	cast_rays(t_data *d);
+void	vertical_line_check(t_data *d);
+void	horizontal_line_check(t_data *d);
 void	normalize_angle(float *angle);
-int	get_color_from_rgb(int red, int green, int blue);
+int		get_color_from_rgb(int red, int green, int blue);
+int		validate_move(t_data *d, char c);
+void	rotate_left(t_data *d);
+void	rotate_right(t_data *d);

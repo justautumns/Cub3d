@@ -1,7 +1,8 @@
 NAME = cub
 CC = cc -Wall -Wextra -Werror
 
-SOURCES = cub.c movement.c draw.c utils.c
+SOURCES = cub.c movement.c draw.c utils.c movement_validation.c \
+			rotations.c lines_check.c raycasting.c
 
 OBJECTS = ${SOURCES:.c=.o}
 

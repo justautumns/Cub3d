@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/20 11:32:33 by mtrojano          #+#    #+#             */
+/*   Updated: 2024/07/20 11:50:19 by mtrojano         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub.h"
 
 int	ft_strlen(char *str)
@@ -78,5 +90,5 @@ char	**add_to_array(char **arr, char *str)
 
 int	get_color_from_rgb(int red, int green, int blue)
 {
-	return (red << 16) | (green << 8) | blue;
+	return ((red << 16) | (green << 8) | blue);
 }
