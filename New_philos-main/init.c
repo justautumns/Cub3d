@@ -3,25 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mehmeyil <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:13:52 by mehmeyil          #+#    #+#             */
-/*   Updated: 2024/07/20 02:29:55 by mehmeyil         ###   ########.fr       */
+/*   Updated: 2024/07/26 15:13:40 by mtrojano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./philo.h"
-
-// void test(t_data *data)
-// {
-// 	int k = 0;
-// 	t_data *x = data;
-// 	while(k < x->number_of_philos)
-// 	{
-// 		printf("Philo %d : Left spoon %d Right spoon %d\n", x->philos[k]->philo_id, x->philos[k]->left_spoon_no, x->philos[k]->right_spoon_no);
-// 		k++;
-// 	}
-// }
 
 int	init_mutexes(t_data *data)
 {
@@ -34,46 +23,51 @@ int	init_mutexes(t_data *data)
 	while (m < data->number_of_philos)
 	{
 		if (pthread_mutex_init(&data->forks[m], NULL) != 0)
+		{
+			while (m >= 0)
+			{
+				pthread_mutex_destroy(&data->forks[m]);
+				m--;
+			}
 			return (-1);
+		}
 		m++;
 	}
-	if (pthread_mutex_init(&data->dead_mutex, NULL) != 0)
-		return (-1);
 	if (pthread_mutex_init(&data->print_mutex, NULL) != 0)
+		return (-1);
+	if (pthread_mutex_init(&data->dead_mutex, NULL) != 0)
 		return (-1);
 	return (0);
 }
+
 void	init_spoons(t_data *data, t_philo *philo)
 {
 	philo->forks[0] = philo->philo_id - 1;
 	philo->forks[1] = (philo->philo_id) % data->number_of_philos;
-	if (philo->philo_id % 2 == 0)
+	if (philo->philo_id % 2)
 	{
 		philo->forks[0] = (philo->philo_id) % data->number_of_philos;
 		philo->forks[1] = philo->philo_id - 1;
 	}
 }
-t_philo	**init_philos(t_data *data)
+
+t_philo	*init_philos(t_data *data)
 {
 	int		m;
-	t_philo	**philos;
+	t_philo	*philos;
 
 	philos = malloc(sizeof(t_philo) * data->number_of_philos);
 	if (!philos)
 		return (NULL);
-	m = 0;
-	while (m < data->number_of_philos)
+	m = -1;
+	while (++m < data->number_of_philos)
 	{
-		philos[m] = malloc(sizeof(t_philo) * 1);
-		if (!philos[m])
-			return (NULL);
-		philos[m]->data = data;
-		//printf("%d - %d\n",m,  philos[m]->data->number_of_philos);
-		philos[m]->how_many_times_eated = 0;
-		philos[m]->last_meal = 0;
-		philos[m]->philo_id = m + 1;
-		init_spoons(data, philos[m]);
-	m++;
+		philos[m].data = data;
+		philos[m].how_many_times_eated = 0;
+		philos[m].last_meal = 0;
+		philos[m].is_full = false; //added
+		philos[m].philo_id = m + 1;
+		init_spoons(data, &philos[m]);
 	}
 	return (philos);
 }
@@ -94,6 +88,9 @@ t_data	*init_data(char **av)
 	else
 		my_data->number_of_eatings = 0;
 	my_data->dead_flag = false;
+	my_data->eat_enough = false;
+	my_data->all_full = 0; // added
+	my_data->f_something_happens = false;
 	my_data->philos = init_philos(my_data);
 	return (my_data);
 }
