@@ -3,25 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   begin.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 17:24:12 by mehmeyil          #+#    #+#             */
-/*   Updated: 2024/07/26 15:45:20 by mtrojano         ###   ########.fr       */
+/*   Updated: 2024/08/01 18:13:21 by mehmeyil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./philo.h"
 
-void	*test_routine(void *pointer)
+int	monitor_create(t_data *data)
 {
-	t_data	*data;
-
-	data = (t_data *)pointer;
-	pthread_mutex_lock(&data->dead_mutex);
-	printf("deneme \n");
-	my_usleep(1000, NULL);
-	pthread_mutex_unlock(&data->dead_mutex);
-	return (NULL);
+	if (data->number_of_philos > 1)
+	{
+		if (pthread_create(&data->monitor, NULL, &doch_sauron, data) != 0)
+			return (-1);
+	}
+	if (data->f_something_happens == true)
+	{
+		if (data->number_of_philos > 1)
+		{
+			if (pthread_join(data->monitor, NULL) != 0)
+				return (-1);
+		}
+		return (-1);
+	}
+	return (0);
 }
 
 int	thread_create(t_data *data)
@@ -29,38 +36,85 @@ int	thread_create(t_data *data)
 	int		m;
 
 	m = 0;
-	data->begin_time = get_time(); // + (data->number_of_philos * 10);
+	data->begin_time = get_time();
+	if ((uint64_t)data->begin_time == TIME_ERROR)
+		return (-1);
+	pthread_mutex_lock(&data->dead_mutex);
 	while (m < data->number_of_philos)
 	{
-		data->philos[m].last_meal = get_time(); // added here insted of in routine, cause sometimes last meal was equal 0 and philo was dying immediately (./philo 3 800 200 200 2)
 		if (pthread_create(&data->philos[m].thread, NULL,
 				&philo_routines, &data->philos[m]) != 0)
 		{
+			data->dead_flag = true;
 			data->f_something_happens = true;
-			return (-1);
+			data->number_of_philos = m;
+			break ;
 		}
 		m++;
 	}
-	if (data->number_of_philos > 1)
-	{
-		if (pthread_create(&data->monitor, NULL, &doch_sauron, data) != 0)
-			return (-1);
-	}
+	pthread_mutex_unlock(&data->dead_mutex);
+	if (data->f_something_happens == true)
+		return (-1);
+	if (monitor_create(data) == -1)
+		return (-1);
 	return (0);
 }
 
-void	threads_join(t_data *data)
+int	threads_join(t_data *data)
 {
 	int	m;
 
 	m = 0;
+	if (data->number_of_philos == 0)
+		return (-1);
 	while (m < data->number_of_philos)
 	{
-		pthread_join(data->philos[m].thread, NULL);
-		if (data->f_something_happens == true)
+		if (pthread_join(data->philos[m].thread, NULL) != 0)
+			return (-1);
+		m++;
+	}
+	if (data->f_something_happens == true)
+		return (0);
+	if (data->number_of_philos > 1)
+	{
+		if (pthread_join(data->monitor, NULL) != 0)
+			return (-1);
+	}
+	return (0);
+}
+/*
+void	*test_routine(void *pointer)
+{
+	t_philo	*philo;
+
+	philo = (t_philo *)pointer;
+	pthread_mutex_lock(&philo->data->dead_mutex);
+	usleep(1000);
+	pthread_mutex_unlock(&philo->data->dead_mutex);
+	return (NULL);
+}
+
+int	thread_test(t_data *data)
+{
+	int	m;
+	int	k;
+
+	m = 0;
+	while (m < data->number_of_philos)
+	{
+		if (pthread_create(&data->philos[m].thread, NULL,
+				&test_routine, &data->philos[m]) != 0)
 			break ;
 		m++;
 	}
-	if (data->number_of_philos > 1)
-		pthread_join(data->monitor, NULL);
-}
+	if (m != data->number_of_philos)
+		data->f_something_happens = true;
+	k = 0;
+	while (k < m)
+	{
+		if (pthread_join(data->philos[k].thread, NULL) != 0)
+			return (-1);
+		k++;
+	}
+	return (0);
+}*/

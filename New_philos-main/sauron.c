@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sauron.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 21:15:56 by mehmeyil          #+#    #+#             */
-/*   Updated: 2024/07/26 15:58:07 by mtrojano         ###   ########.fr       */
+/*   Updated: 2024/08/01 19:18:44 by mehmeyil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,11 @@ void	printings(t_philo *philo, char *str)
 bool	check_bakalim(t_philo *philo)
 {
 	time_t	time;
+	time_t	y;
 
 	time = get_time();
+	if ((uint64_t) time == TIME_ERROR)
+		return (true);
 	pthread_mutex_lock(&philo->data->print_mutex);
 	if ((time - philo->last_meal) >= philo->data->time_to_die)
 	{
@@ -33,7 +36,10 @@ bool	check_bakalim(t_philo *philo)
 		philo->data->dead_flag = true;
 		pthread_mutex_unlock(&philo->data->dead_mutex);
 		pthread_mutex_lock(&philo->data->print_mutex);
-		printf("%ld %d died\n", get_time() - philo->data->begin_time,
+		y = get_time();
+		if ((uint64_t) y == TIME_ERROR)
+			return (pthread_mutex_unlock(&philo->data->print_mutex), true);
+		printf("%ld %d died\n", y - philo->data->begin_time,
 			philo->philo_id);
 		pthread_mutex_unlock(&philo->data->print_mutex);
 		return (true);
@@ -41,31 +47,19 @@ bool	check_bakalim(t_philo *philo)
 	return (pthread_mutex_unlock(&philo->data->print_mutex), false);
 }
 
-// bool	hungry_or_not(t_philo *philo)
-// {
-// 	pthread_mutex_lock(&philo->data->print_mutex);
-// 	if (philo->data->number_of_eatings != 0 && philo->how_many_times_eated
-// 		> philo->data->number_of_eatings)
-// 	{
-// 		pthread_mutex_unlock(&philo->data->print_mutex);
-// 		pthread_mutex_lock(&philo->data->dead_mutex);
-// 		philo->data->eat_enough = true;
-// 		pthread_mutex_unlock(&philo->data->dead_mutex);
-// 		return (true);
-// 	}
-// 	pthread_mutex_unlock(&philo->data->print_mutex);
-// 	return (false);
-// }
-
 bool	hungry_or_not(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->data->dead_mutex);
-	if (philo->data->number_of_eatings != 0 && philo->data->all_full == philo->data->number_of_philos)
+	pthread_mutex_lock(&philo->data->print_mutex);
+	if (philo->data->number_of_eatings != 0 && philo->how_many_times_eated
+		> philo->data->number_of_eatings)
 	{
+		pthread_mutex_unlock(&philo->data->print_mutex);
+		pthread_mutex_lock(&philo->data->dead_mutex);
+		philo->data->eat_enough = true;
 		pthread_mutex_unlock(&philo->data->dead_mutex);
 		return (true);
 	}
-	pthread_mutex_unlock(&philo->data->dead_mutex);
+	pthread_mutex_unlock(&philo->data->print_mutex);
 	return (false);
 }
 
@@ -76,7 +70,8 @@ void	*doch_sauron(void	*pointer)
 
 	data = (t_data *)pointer;
 	m = 0;
-	my_usleep(data->time_to_die, NULL);
+	if (my_usleep(data->time_to_die, NULL) == -1)
+		return (NULL);
 	while (m < data->number_of_philos)
 	{
 		if (check_bakalim(&data->philos[m]) == true)
@@ -86,7 +81,7 @@ void	*doch_sauron(void	*pointer)
 		m++;
 		if (m == data->number_of_philos)
 			m = 0;
-		//usleep(1000);
+		usleep(1000);
 	}
 	return (NULL);
 }

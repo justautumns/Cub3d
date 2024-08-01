@@ -3,14 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:13:52 by mehmeyil          #+#    #+#             */
-/*   Updated: 2024/07/26 15:13:40 by mtrojano         ###   ########.fr       */
+/*   Updated: 2024/08/01 18:11:20 by mehmeyil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./philo.h"
+
+void	mutex_what_if(t_data *data, int m)
+{
+	while (m > 0)
+	{
+		m--;
+		pthread_mutex_destroy(&data->forks[m]);
+	}
+	free (data->forks);
+}
 
 int	init_mutexes(t_data *data)
 {
@@ -24,19 +34,20 @@ int	init_mutexes(t_data *data)
 	{
 		if (pthread_mutex_init(&data->forks[m], NULL) != 0)
 		{
-			while (m >= 0)
+			while (m > 0)
 			{
-				pthread_mutex_destroy(&data->forks[m]);
 				m--;
+				pthread_mutex_destroy(&data->forks[m]);
 			}
-			return (-1);
+			return (free(data->forks), -1);
 		}
 		m++;
 	}
 	if (pthread_mutex_init(&data->print_mutex, NULL) != 0)
-		return (-1);
+		return (mutex_what_if(data, m), -1);
 	if (pthread_mutex_init(&data->dead_mutex, NULL) != 0)
-		return (-1);
+		return (mutex_what_if(data, m),
+			pthread_mutex_destroy(&data->print_mutex), -1);
 	return (0);
 }
 
@@ -65,7 +76,6 @@ t_philo	*init_philos(t_data *data)
 		philos[m].data = data;
 		philos[m].how_many_times_eated = 0;
 		philos[m].last_meal = 0;
-		philos[m].is_full = false; //added
 		philos[m].philo_id = m + 1;
 		init_spoons(data, &philos[m]);
 	}
@@ -89,8 +99,12 @@ t_data	*init_data(char **av)
 		my_data->number_of_eatings = 0;
 	my_data->dead_flag = false;
 	my_data->eat_enough = false;
-	my_data->all_full = 0; // added
 	my_data->f_something_happens = false;
 	my_data->philos = init_philos(my_data);
+	if (my_data->philos == NULL)
+	{
+		free(my_data);
+		return (NULL);
+	}
 	return (my_data);
 }

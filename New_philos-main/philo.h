@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:38:23 by mehmeyil          #+#    #+#             */
-/*   Updated: 2024/07/26 04:59:44 by mtrojano         ###   ########.fr       */
+/*   Updated: 2024/08/01 18:06:35 by mehmeyil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include <pthread.h>
 # include <stdbool.h>
 
+# define TIME_ERROR UINT64_MAX
+
 typedef struct s_philo	t_philo;
 
 typedef struct s_data
@@ -32,7 +34,6 @@ typedef struct s_data
 	time_t			time_to_sleep;
 	int				number_of_philos;
 	int				number_of_eatings;
-	int				all_full; // added
 	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	dead_mutex;
@@ -41,14 +42,12 @@ typedef struct s_data
 	bool			dead_flag;
 	bool			eat_enough;
 	bool			f_something_happens;
-	time_t			begin_for_monitor;
 }	t_data;
 
 typedef struct s_philo
 {
 	pthread_t		thread;
 	int				philo_id;
-	bool			is_full; // added
 	int				how_many_times_eated;
 	int				forks[2];
 	time_t			last_meal;
@@ -60,10 +59,11 @@ int			ft_atoi(char *str);
 uint64_t	get_time(void);
 bool		error_check(char **str);
 void		ft_error(char *str, t_data *data);
-void		my_usleep(int difference, t_philo *philo);
+int			my_usleep1(int difference, t_philo *philo);
+int			my_usleep(int difference, t_philo *philo);
 void		freeing(t_data *data);
 void		free_mutexes(t_data *data);
-void		even_f_times(uint64_t time);
+void		*ft_calloc(size_t nmemb, size_t size);
 
 // INIT
 t_data		*init_data(char **av);
@@ -71,11 +71,13 @@ int			init_mutexes(t_data *data);
 
 // TESTS
 //void	test(t_data *data);
+//int			thread_test(t_data *data);
 
 // BEGINNING THE PROGRAMM
 void		*doch_sauron(void *pointer);
 void		*philo_routines(void *pointer);
 void		printings(t_philo *philo, char *str);
 int			thread_create(t_data *data);
-void		threads_join(t_data *data);
+int			threads_join(t_data *data);
+int			am_i_dead(t_philo *philo);
 #endif
