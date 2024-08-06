@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 11:27:29 by mtrojano          #+#    #+#             */
-/*   Updated: 2024/07/26 08:29:04 by mtrojano         ###   ########.fr       */
+/*   Updated: 2024/08/07 00:57:35 by mehmeyil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "./libft/libft.h"
 #include <mlx.h>
 #include <X11/keysym.h>
 #include <stdio.h>
@@ -123,3 +124,8 @@ void	rotate_left(t_data *d);
 void	rotate_right(t_data *d);
 int		release_key(int keysym, t_data *d);
 int		move_player(t_data *d);
+
+//Errorchecks
+int		arg_check(char *str);
+int		texture_check(char *str);
+int		ft_error(char *str);

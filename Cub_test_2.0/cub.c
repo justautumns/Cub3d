@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 11:27:10 by mtrojano          #+#    #+#             */
-/*   Updated: 2024/07/26 07:37:33 by mtrojano         ###   ########.fr       */
+/*   Updated: 2024/08/07 01:17:44 by mehmeyil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,16 @@ char	*remove_nl(char *str)
 	return (temp);
 }
 
-void	get_map(t_data *d)
+int	get_map(t_data *d, char *path)
 {
-	FILE	*file;
 	char	line[100];
 	int		y;
+	int		fd;
 
 	y = 0;
-	file = fopen("map.cub", "r+");
+	fd = open(path, O_RDONLY);
+	if (fd < 1)
+		return (-1);
 	d->map_max_height = 0;
 	d->map_max_width = 0;
 	d->map = malloc(1 * sizeof(char *));
@@ -155,12 +157,17 @@ void	init_key_struct(t_data *d)
 	d->keys.right = 0;
 }
 
-int	main(void)
+int	main(int ac, char **av)
 {
 	t_data	d;
 
+	if (ac != 2)
+		return (ft_error("Please enter the arguments correctly\n"));
+	if (arg_check(av[1]) == -1)
+		return (ft_error("Incorrect cub file\n"));
 	init_key_struct(&d);
-	get_map(&d);
+	if (get_map(&d, av[1]) == -1)
+		return (ft_error("Error: Map cannot be read\n"));
 	get_player(&d);
 	get_player_angle(&d);
 	//printf("map max height = %d\nmap max width = %d\n", d.map_max_height, d.map_max_width);
