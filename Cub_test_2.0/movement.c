@@ -6,7 +6,7 @@
 /*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 11:44:36 by mtrojano          #+#    #+#             */
-/*   Updated: 2024/07/20 11:46:07 by mtrojano         ###   ########.fr       */
+/*   Updated: 2024/07/26 08:16:48 by mtrojano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,81 @@ int	handle_key_press(int keysym, t_data *d)
 	if (keysym == XK_Escape)
 		exit(0);
 	if (keysym == XK_w)
+		d->keys.w = 1;
+	if (keysym == XK_s)
+		d->keys.s = 1;
+	if (keysym == XK_a)
+		d->keys.a = 1;
+	if (keysym == XK_d)
+		d->keys.d = 1;
+	if (keysym == XK_Left)
+		d->keys.left = 1;
+	if (keysym == XK_Right)
+		d->keys.right = 1;
+	return (0);
+}
+
+// int	handle_key_press(int keysym, t_data *d)
+// {
+// 	check_press(keysym, d);
+// 	if (keysym == XK_Escape)
+// 		exit(0);
+// 	if (keysym == XK_w)
+// 		if (validate_move(d, 'w') == 0)
+// 			move_up(d);
+// 	if (keysym == XK_s)
+// 		if (validate_move(d, 's') == 0)
+// 			move_down(d);
+// 	if (keysym == XK_a)
+// 		if (validate_move(d, 'a') == 0)
+// 			move_left(d);
+// 	if (keysym == XK_d)
+// 		if (validate_move(d, 'd') == 0)
+// 			move_right(d);
+// 	if (keysym == XK_Left)
+// 		rotate_left(d);
+// 	if (keysym == XK_Right)
+// 		rotate_right(d);
+// 	mlx_destroy_image(d->root, d->image);
+// 	draw_map(d);
+// 	cast_rays(d);
+// 	return (0);
+// }
+
+int	release_key(int keysym, t_data *d)
+{
+	if (keysym == XK_w && d->keys.w == 1)
+		d->keys.w = 0;
+	if (keysym == XK_s && d->keys.s == 1)
+		d->keys.s = 0;
+	if (keysym == XK_a && d->keys.a == 1)
+		d->keys.a = 0;
+	if (keysym == XK_d && d->keys.d == 1)
+		d->keys.d = 0;
+	if (keysym == XK_Left && d->keys.left == 1)
+		d->keys.left = 0;
+	if (keysym == XK_Right && d->keys.right == 1)
+		d->keys.right = 0;
+	return (0);
+}
+
+int	move_player(t_data *d)
+{
+	if (d->keys.w == 1)
 		if (validate_move(d, 'w') == 0)
 			move_up(d);
-	if (keysym == XK_s)
+	if (d->keys.s == 1)
 		if (validate_move(d, 's') == 0)
 			move_down(d);
-	if (keysym == XK_a)
+	if (d->keys.a == 1)
 		if (validate_move(d, 'a') == 0)
 			move_left(d);
-	if (keysym == XK_d)
+	if (d->keys.d == 1)
 		if (validate_move(d, 'd') == 0)
 			move_right(d);
-	if (keysym == XK_Left)
+	if (d->keys.left == 1)
 		rotate_left(d);
-	if (keysym == XK_Right)
+	if (d->keys.right == 1)
 		rotate_right(d);
 	mlx_destroy_image(d->root, d->image);
 	draw_map(d);

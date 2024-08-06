@@ -6,7 +6,7 @@
 /*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 11:27:29 by mtrojano          #+#    #+#             */
-/*   Updated: 2024/07/20 17:36:07 by mtrojano         ###   ########.fr       */
+/*   Updated: 2024/07/26 08:29:04 by mtrojano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 #include <fcntl.h>
 #include <string.h>
 #include <stdbool.h>
+#include <sys/time.h>
 
 #define PI 3.14159265358979323846
 #define TILE_SIZE 64
@@ -31,9 +32,9 @@
 #define EAST 2 * PI
 #define DEGREE 0.0174533
 #define FOV 60
-#define MOVE_SPEED 25.0
-#define DIST_FROM_WALL 1.5
-#define ROTATION_SPEED 5 * DEGREE
+#define MOVE_SPEED 1.5
+#define DIST_FROM_WALL 20
+#define ROTATION_SPEED DEGREE / 2
 
 typedef struct tex
 {
@@ -44,6 +45,16 @@ typedef struct tex
 	int		*tex_line_len;
 	int		*tex_endian;
 }	t_tex;
+
+typedef struct keys
+{
+	int	w;
+	int	s;
+	int	a;
+	int	d;
+	int	left;
+	int	right;
+}	t_keys;
 
 typedef struct data
 {
@@ -86,6 +97,7 @@ typedef struct data
 	float	vertical_x;
 	float	vertical_y;
 	t_tex	*tex;
+	t_keys	keys;
 }	t_data;
 
 void	draw_map(t_data *d);
@@ -109,3 +121,5 @@ int		get_color_from_rgb(int red, int green, int blue);
 int		validate_move(t_data *d, char c);
 void	rotate_left(t_data *d);
 void	rotate_right(t_data *d);
+int		release_key(int keysym, t_data *d);
+int		move_player(t_data *d);

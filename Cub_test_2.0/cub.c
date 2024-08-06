@@ -6,7 +6,7 @@
 /*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 11:27:10 by mtrojano          #+#    #+#             */
-/*   Updated: 2024/07/20 11:54:46 by mtrojano         ###   ########.fr       */
+/*   Updated: 2024/07/26 07:37:33 by mtrojano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,10 +145,21 @@ void	init_textures(t_data *d)
 	}
 }
 
+void	init_key_struct(t_data *d)
+{
+	d->keys.w = 0;
+	d->keys.s = 0;
+	d->keys.a = 0;
+	d->keys.d = 0;
+	d->keys.left = 0;
+	d->keys.right = 0;
+}
+
 int	main(void)
 {
 	t_data	d;
 
+	init_key_struct(&d);
 	get_map(&d);
 	get_player(&d);
 	get_player_angle(&d);
@@ -165,5 +176,7 @@ int	main(void)
 	// mlx_put_image_to_window(d.root, d.window, d.tex->textures[2], 128, 0);
 	// mlx_put_image_to_window(d.root, d.window, d.tex->textures[3], 192, 0);
 	mlx_hook(d.window, KeyPress, KeyPressMask, handle_key_press, &d);
+	mlx_hook(d.window, KeyRelease, KeyReleaseMask, release_key, &d);
+	mlx_loop_hook(d.root, move_player, &d);
 	mlx_loop(d.root);
 }
