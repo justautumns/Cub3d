@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 16:58:07 by mtrojano          #+#    #+#             */
-/*   Updated: 2023/10/12 14:07:32 by mtrojano         ###   ########.fr       */
+/*   Updated: 2024/08/07 01:33:00 by mehmeyil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,10 +103,10 @@ char	*get_next_line(int fd)
 	char		*ret_line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (NULL);
+		return ("Error");
 	storage = find_new_line(fd, storage);
 	if (storage == NULL)
-		return (NULL);
+		return ("Error");
 	ret_line = new_line(storage);
 	storage = storage_update(storage);
 	return (ret_line);

@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 14:50:11 by mtrojano          #+#    #+#             */
-/*   Updated: 2023/09/05 14:52:04 by mtrojano         ###   ########.fr       */
+/*   Updated: 2024/08/07 01:23:54 by mehmeyil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <string.h>
 
-size_t	ft_strlen(const char *str)
+int	ft_strlen(char *str)
 {
-	size_t	len;
+	int	len;
 
 	len = 0;
 	while (*str != '\0')

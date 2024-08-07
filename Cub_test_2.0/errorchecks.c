@@ -6,7 +6,7 @@
 /*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 21:50:22 by mehmeyil          #+#    #+#             */
-/*   Updated: 2024/08/07 01:01:02 by mehmeyil         ###   ########.fr       */
+/*   Updated: 2024/08/07 03:52:40 by mehmeyil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,19 @@ int	ft_error(char *str)
 {
 	write(2, str, ft_strlen(str));
 	return (-1);
+}
+
+int	check_map(char *str)
+{
+	int		fd;
+	char	*line;
+
+	fd = open(str, O_RDONLY);
+	if (fd < 1)
+		return (-1);
+	while (1)
+	{
+		line = get_next_line(fd);
+
+	}
 }

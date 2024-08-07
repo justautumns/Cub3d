@@ -6,7 +6,7 @@
 /*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 11:27:10 by mtrojano          #+#    #+#             */
-/*   Updated: 2024/08/07 01:17:44 by mehmeyil         ###   ########.fr       */
+/*   Updated: 2024/08/07 04:21:35 by mehmeyil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*remove_nl(char *str)
 
 int	get_map(t_data *d, char *path)
 {
-	char	line[100];
+	char	*line;
 	int		y;
 	int		fd;
 
@@ -41,8 +41,10 @@ int	get_map(t_data *d, char *path)
 	d->map_max_height = 0;
 	d->map_max_width = 0;
 	d->map = malloc(1 * sizeof(char *));
+	if (!d->map)
+		return (-1);
 	d->map[0] = NULL;
-	while (fgets(line, 100, file))
+	//while ()
 		d->map = add_to_array(d->map, remove_nl(line));
 	while (d->map[y])
 	{
@@ -123,13 +125,8 @@ void	init_textures(t_data *d)
 	int	i;
 
 	i = 0;
-	d->tex = malloc(sizeof(t_tex));
-	d->tex->tex_path = malloc(5 * sizeof(char *));
-	d->tex->tex_path[0] = NULL;
-	d->tex->tex_path = add_to_array(d->tex->tex_path, "textures/deneme0.xpm\0");
-	d->tex->tex_path = add_to_array(d->tex->tex_path, "textures/deneme1.xpm\0");
-	d->tex->tex_path = add_to_array(d->tex->tex_path, "textures/deneme2.xpm\0");
-	d->tex->tex_path = add_to_array(d->tex->tex_path, "textures/deneme3.xpm\0");
+
+	d->tex->tex_path =
 	d->tex->tex_data = malloc(4 * sizeof(char *));
 	d->tex->tex_data[0] = NULL;
 	d->tex->textures = malloc(4 * sizeof(void *));
@@ -166,6 +163,8 @@ int	main(int ac, char **av)
 	if (arg_check(av[1]) == -1)
 		return (ft_error("Incorrect cub file\n"));
 	init_key_struct(&d);
+	if (check_map(av[1]) == -1)
+		return (ft_error("Invalid map\n"));
 	if (get_map(&d, av[1]) == -1)
 		return (ft_error("Error: Map cannot be read\n"));
 	get_player(&d);

@@ -6,11 +6,11 @@
 /*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 11:27:29 by mtrojano          #+#    #+#             */
-/*   Updated: 2024/08/07 00:57:35 by mehmeyil         ###   ########.fr       */
+/*   Updated: 2024/08/07 03:37:23 by mehmeyil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./libft/libft.h"
+#include "./Libft/libft.h"
 #include <mlx.h>
 #include <X11/keysym.h>
 #include <stdio.h>
@@ -110,8 +110,6 @@ void	move_right(t_data *d);
 void	move_left(t_data *d);
 void	draw_player_init(t_data *d, int x, int y, int size);
 void	display_map(t_data *d);
-int		ft_strlen(char *str);
-char	*ft_strdup(const char *s);
 void	free_env(char ***env);
 char	**add_to_array(char **arr, char *str);
 void	cast_rays(t_data *d);
@@ -129,3 +127,4 @@ int		move_player(t_data *d);
 int		arg_check(char *str);
 int		texture_check(char *str);
 int		ft_error(char *str);
+int		read_from_map(int fd, t_data *data, char *str);

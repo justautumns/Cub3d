@@ -6,23 +6,23 @@
 /*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 11:32:33 by mtrojano          #+#    #+#             */
-/*   Updated: 2024/08/07 00:58:12 by mehmeyil         ###   ########.fr       */
+/*   Updated: 2024/08/07 01:22:48 by mehmeyil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-int	ft_strlen(char *str)
-{
-	int	len;
+// int	ft_strlen(char *str)
+// {
+// 	int	len;
 
-	len = 0;
-	if (!str)
-		return (0);
-	while (str[len])
-		len++;
-	return (len);
-}
+// 	len = 0;
+// 	if (!str)
+// 		return (0);
+// 	while (str[len])
+// 		len++;
+// 	return (len);
+// }
 
 char	*ft_strdup(const char *s)
 {
