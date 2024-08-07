@@ -6,7 +6,7 @@
 /*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 11:27:29 by mtrojano          #+#    #+#             */
-/*   Updated: 2024/08/07 11:46:29 by mtrojano         ###   ########.fr       */
+/*   Updated: 2024/08/07 21:01:28 by mtrojano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,44 +61,57 @@ typedef struct keys
 	int	right;
 }	t_keys;
 
+typedef struct colors
+{
+	int	f_r; //floor red
+	int	f_g; // floor green
+	int	f_b; // floor blue
+	int	c_r; // ceiling red
+	int	c_g; // ceiling green
+	int	c_b; // ceiling blue
+}	t_colors;
+
 typedef struct data
 {
-	void	*root;
-	void	*window;
-	char	**map;
-	int		ceiling_color;
-	int		floor_color;
-	int		map_x;
-	int		map_y;
-	int		map_max_width;
-	int		map_max_height;
-	int		img_x;
-	int		img_y;
-	void	*image;
-	int		*img_addr;
-	int		bpp;
-	int		line_length;
-	int		endian;
-	int		tex_slice_height;
-	int		tex_x;
-	int		check_x;
-	float	player_x;
-	float	player_y;
-	float	player_angle;
-	float	ray_angle;
-	float	ray_x;
-	float	ray_y;
-	int		ray_direction;
-	float	x_offset;
-	float	y_offset;
-	float	dist_h;
-	float	dist_v;
-	float	horizontal_x;
-	float	horizontal_y;
-	float	vertical_x;
-	float	vertical_y;
-	t_tex	*tex;
-	t_keys	keys;
+	void		*root;
+	void		*window;
+	char		**map;
+	char		*color_f;
+	char		*color_c;
+	int			ceiling_color;
+	int			floor_color;
+	int			map_x;
+	int			map_y;
+	int			map_max_width;
+	int			map_max_height;
+	int			img_x;
+	int			img_y;
+	void		*image;
+	int			*img_addr;
+	int			bpp;
+	int			line_length;
+	int			endian;
+	int			tex_slice_height;
+	int			tex_x;
+	int			check_x;
+	float		player_x;
+	float		player_y;
+	float		player_angle;
+	float		ray_angle;
+	float		ray_x;
+	float		ray_y;
+	int			ray_direction;
+	float		x_offset;
+	float		y_offset;
+	float		dist_h;
+	float		dist_v;
+	float		horizontal_x;
+	float		horizontal_y;
+	float		vertical_x;
+	float		vertical_y;
+	t_tex		*tex;
+	t_colors	*colors;
+	t_keys		keys;
 }	t_data;
 
 void	draw_map(t_data *d);
@@ -140,3 +153,4 @@ int		read_from_map(int fd, t_data *data);
 void	free_all(t_data *d);
 int		check_map(char *str, t_data *d);
 int		ft_strlen_n(char *str);
+char	*remove_nl(char *str);

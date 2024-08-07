@@ -6,7 +6,7 @@
 /*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 04:56:40 by mtrojano          #+#    #+#             */
-/*   Updated: 2024/08/07 11:53:44 by mtrojano         ###   ########.fr       */
+/*   Updated: 2024/08/07 20:22:59 by mtrojano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,10 @@ void	free_all(t_data *d)
 		free(d->tex);
 	if (d->map)
 		free_env(&d->map);
+	if (d->color_c)
+		free(d->color_c);
+	if (d->color_f)
+		free(d->color_f);
+	if (d->colors)
+		free(d->colors);
 }

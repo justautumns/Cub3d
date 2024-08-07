@@ -6,7 +6,7 @@
 /*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 07:12:30 by mtrojano          #+#    #+#             */
-/*   Updated: 2024/08/07 12:05:46 by mtrojano         ###   ########.fr       */
+/*   Updated: 2024/08/07 21:25:19 by mtrojano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,19 +51,38 @@ void	init_key_struct(t_data *d)
 	d->keys.right = 0;
 }
 
-int	init_all(t_data *d)
+void	init_stuff(t_data *d)
 {
-	init_key_struct(d);
-	if (init_textures(d) == -1)
-		return (-1);
 	d->tex->no_path = NULL;
 	d->tex->so_path = NULL;
 	d->tex->we_path = NULL;
 	d->tex->ea_path = NULL;
+	d->color_c = NULL;
+	d->color_f = NULL;
+	d->colors->c_b = -1;
+	d->colors->c_g = -1;
+	d->colors->c_r = -1;
+	d->colors->f_b = -1;
+	d->colors->f_g = -1;
+	d->colors->f_r = -1;
 	d->root = NULL;
 	d->window = NULL;
-	d->map = NULL;
 	d->image = NULL;
 	d->img_addr = NULL;
+}
+
+int	init_all(t_data *d)
+{
+	d->colors = malloc(sizeof(t_colors));
+	if (!d->colors)
+		return (ft_error("Error: malloc failed\n"));
+	d->map = malloc(1 * sizeof(char *));
+	if (!d->map)
+		return (ft_error("Error: malloc failed\n"));
+	d->map[0] = NULL;
+	init_key_struct(d);
+	if (init_textures(d) == -1)
+		return (-1);
+	init_stuff(d);
 	return (0);
 }
