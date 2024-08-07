@@ -2,27 +2,30 @@ NAME = cub
 CC = cc -Wall -Wextra -Werror
 
 SOURCES = cub.c movement.c draw.c utils.c movement_validation.c \
-			rotations.c lines_check.c raycasting.c errorchecks.c
+			rotations.c lines_check.c raycasting.c errorchecks.c \
+			free_all.c getters.c init.c read_from_cub.c
 
 OBJECTS = ${SOURCES:.c=.o}
 
-LIBFT = ./libft/libft.a
+LIBFT = ./Libft/libft.a
 
-INCLUDE = INCLUDE = -I./libft
+INCLUDE = -I./libft
 
 all: $(NAME)
 
 $(NAME): $(OBJECTS)
-	$(MAKE) -C ./libft
-	$(CC) $(LIBFT) -o $(NAME) $(OBJECTS) -L ./mlx -lmlx -lXext -lX11 -lm -lz -L/usr/include -Imlx
+	make -C ./Libft
+	$(CC) -o $(NAME) $(OBJECTS) $(LIBFT) -L ./mlx -lmlx -lXext -lX11 -lm -lz -L/usr/include -Imlx
 
 %.o: %.c
-	$(CC) -o $@ -c $<
+	$(CC) $(INCLUDE) -o $@ -c $<
 
 clean:
+	make -C ./Libft clean
 	rm -f $(OBJECTS)
 
 fclean:
+	make -C ./Libft fclean
 	rm -f $(OBJECTS) $(NAME)
 
 re: fclean all

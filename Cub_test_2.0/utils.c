@@ -3,44 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 11:32:33 by mtrojano          #+#    #+#             */
-/*   Updated: 2024/08/07 01:22:48 by mehmeyil         ###   ########.fr       */
+/*   Updated: 2024/08/07 09:12:05 by mtrojano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-// int	ft_strlen(char *str)
-// {
-// 	int	len;
-
-// 	len = 0;
-// 	if (!str)
-// 		return (0);
-// 	while (str[len])
-// 		len++;
-// 	return (len);
-// }
-
-char	*ft_strdup(const char *s)
+int	ft_strlen_n(char *str)
 {
-	int		len;
-	char	*dup;
-	char	*ret_dup;
+	int	i;
 
-	len = 0;
-	while (s[len] != '\0')
-		len++;
-	ret_dup = malloc((len + 1) * sizeof(char));
-	if (!ret_dup)
+	i = 0;
+	if (!str)
 		return (0);
-	dup = ret_dup;
-	while (*s)
-		*dup++ = *s++;
-	*dup = '\0';
-	return (ret_dup);
+	while (str[i])
+		i++;
+	return (i);
 }
 
 void	free_env(char ***env)

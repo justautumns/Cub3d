@@ -3,69 +3,139 @@
 /*                                                        :::      ::::::::   */
 /*   read_from_cub.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 00:16:20 by mehmeyil          #+#    #+#             */
-/*   Updated: 2024/08/07 03:41:58 by mehmeyil         ###   ########.fr       */
+/*   Updated: 2024/08/07 15:01:17 by mtrojano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./cub.h"
 
-char	*texture_path(char *str)
+int	check_other_two_directions(t_data *d, char *dir, char *path)
+{
+	if (ft_strncmp(dir, "WE", 2) == 0)
+	{
+		if (d->tex->we_path)
+			return (ft_error("Cannot have more than one WE\n"));
+		d->tex->we_path = ft_strdup(path);
+		if (!d->tex->we_path)
+			return (ft_error("Error: malloc failed\n"));
+		return (0);
+	}
+	if (ft_strncmp(dir, "EA", 2) == 0)
+	{
+		if (d->tex->ea_path)
+			return (ft_error("Cannot have more than one EA\n"));
+		d->tex->ea_path = ft_strdup(path);
+		if (!d->tex->ea_path)
+			return (ft_error("Error: malloc failed\n"));
+		return (0);
+	}
+	return (-1);
+}
+
+int	check_directions(t_data *d, char *dir, char *path)
+{
+	if (ft_strncmp(dir, "NO", 2) == 0)
+	{
+		if (d->tex->no_path)
+			return (ft_error("Cannot have more than one NO\n"));
+		d->tex->no_path = ft_strdup(path);
+		if (!d->tex->no_path)
+			return (ft_error("Error: malloc failed\n"));
+		return (0);
+	}
+	if (ft_strncmp(dir, "SO", 2) == 0)
+	{
+		if (d->tex->so_path)
+			return (ft_error("Cannot have more than one SO\n"));
+		d->tex->so_path = ft_strdup(path);
+		if (!d->tex->so_path)
+			return (ft_error("Error: malloc failed\n"));
+		return (0);
+	}
+	if (check_other_two_directions(d, dir, path) == 0)
+		return (0);
+	return (-1);
+}
+
+int	texture_path(t_data *d, char *str)
 {
 	char	**textures;
-	char	*path;
-	int		m;
 
 	textures = ft_split(str, ' ');
 	if (!textures)
-		return (NULL);
-	path = NULL;
-	m = 0;
-	if (textures[2])
-		return (free_env(&textures), NULL);
-	if (textures[1])
-		path = ft_strdup(textures[1]);
-	if (!path)
-		return (NULL);
-	if (texture_check(path) == -1)
-		return (ft_error("Error: Not a valid path"));
-	while (textures[m])
-	{
-		free(textures[m]);
-		m++;
-	}
-	free(textures);
-	return (path);
-}
-int	exract_paths(char *str)
-{
-	if (!str)
 		return (-1);
-
+	if (!textures[1])
+		return (free_env(&textures),
+			ft_error("Error: Too little arguments for texture\n"));
+	if (textures[2])
+		return (free_env(&textures),
+			ft_error("Error: Too many arguments for texture\n"));
+	if (texture_check(textures[1]) == -1)
+		return (free_env(&textures),
+			ft_error("Error: Texture extension not valid\n"));
+	if (check_directions(d, textures[0], textures[1]) == -1)
+		return (free_env(&textures), -1);
+	free_env(&textures);
+	return (0);
 }
-int	read_from_map(int fd, t_data *data, char *str)
+
+bool	have_all_paths(t_data *d)
+{
+	if (d->tex->no_path && d->tex->so_path
+		&& d->tex->we_path && d->tex->ea_path)
+		return (true);
+	return (false);
+}
+
+int	finish_reading(int fd)
 {
 	char	*line;
 
-	data->tex = malloc(sizeof(t_tex));
-	if (!data->tex)
-		return (-1);
-	data->tex->tex_path = malloc(5 * sizeof(char *));
-	if (!data->tex->tex_path)
-		return (-1);
-	data->tex->tex_path[0] = NULL;
-	while (1)
+	line = get_next_line(fd);
+	if (line && ft_strncmp(line, "Error", 5) == 0)
+		return (ft_error("Error: malloc failed\n"));
+	while (line)
 	{
+		free(line);
 		line = get_next_line(fd);
-		if (ft_strncmp(line, "Error", 5) == 0)
-			return (-1);
-		if (ft_strncmp(line, str, 2) == 0)
-			data->tex->tex_path = add_to_array(data->tex->tex_path, texture_path(line));
-		else
-			return (-1);
+		if (line && ft_strncmp(line, "Error", 5) == 0)
+			return (ft_error("Error: malloc failed\n"));
 	}
 	return (0);
 }
 
+int	check_line(char *line, t_data *d)
+{
+	if (line && ft_strncmp(line, "Error", 5) == 0)
+		return (-1); //return (free(line), -1);
+	if (line && ft_strncmp(line, "\n", 1) != 0)
+	{
+		if (texture_path(d, line) == -1)
+			return (-1); //return (free(line), finish_reading(fd), -1);
+	}
+	return (0);
+}
+
+int	read_from_map(int fd, t_data *d)
+{
+	char	*line;
+
+	line = get_next_line(fd);
+	if (!line)
+		return (ft_error("Error: Map is empty\n"));
+	if (line && ft_strncmp(line, "Error", 5) == 0)
+		return (ft_error("Error: malloc failed\n"));
+	while (line && have_all_paths(d) == false)
+	{
+		if (check_line(line, d) == -1)
+			break ;
+		free(line);
+		line = get_next_line(fd);
+	}
+	free(line);
+	finish_reading(fd);
+	return (0);
+}

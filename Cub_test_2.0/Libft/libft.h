@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 15:33:25 by mtrojano          #+#    #+#             */
-/*   Updated: 2024/08/07 01:24:17 by mehmeyil         ###   ########.fr       */
+/*   Updated: 2024/08/07 09:09:38 by mtrojano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 size_t	ft_strlcat(char *dest, const char *src, size_t size);
 size_t	ft_strlcpy(char *dest, const char *src, size_t size);
-int		ft_strlen(char *str);
+size_t	ft_strlen(const char *str);
 char	*ft_strchr_gnl(const char *str, int c);
 int		get_nl_pos(char *s);
 int		ft_strlen_gnl(const char *str);

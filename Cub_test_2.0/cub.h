@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 11:27:29 by mtrojano          #+#    #+#             */
-/*   Updated: 2024/08/07 03:37:23 by mehmeyil         ###   ########.fr       */
+/*   Updated: 2024/08/07 11:46:29 by mtrojano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,10 @@
 
 typedef struct tex
 {
+	char	*no_path;
+	char	*so_path;
+	char	*we_path;
+	char	*ea_path;
 	char	**tex_path;
 	void	**textures;
 	char	**tex_data;
@@ -61,10 +65,6 @@ typedef struct data
 {
 	void	*root;
 	void	*window;
-	void	*floor;
-	void	*wall;
-	void	*player;
-	void	*hit_point;
 	char	**map;
 	int		ceiling_color;
 	int		floor_color;
@@ -102,13 +102,11 @@ typedef struct data
 }	t_data;
 
 void	draw_map(t_data *d);
-void	draw_player(t_data *d);
 int		handle_key_press(int keysym, t_data *d);
 void	move_down(t_data *d);
 void	move_up(t_data *d);
 void	move_right(t_data *d);
 void	move_left(t_data *d);
-void	draw_player_init(t_data *d, int x, int y, int size);
 void	display_map(t_data *d);
 void	free_env(char ***env);
 char	**add_to_array(char **arr, char *str);
@@ -123,8 +121,22 @@ void	rotate_right(t_data *d);
 int		release_key(int keysym, t_data *d);
 int		move_player(t_data *d);
 
+//Init
+int		init_textures(t_data *d);
+void	init_key_struct(t_data *d);
+int		init_all(t_data *d);
+
+//Getters
+void	get_player(t_data *d);
+void	get_player_angle(t_data *d);
+void	get_map_size(t_data *d);
+int		get_tex_data(t_data *d);
+
 //Errorchecks
 int		arg_check(char *str);
 int		texture_check(char *str);
 int		ft_error(char *str);
-int		read_from_map(int fd, t_data *data, char *str);
+int		read_from_map(int fd, t_data *data);
+void	free_all(t_data *d);
+int		check_map(char *str, t_data *d);
+int		ft_strlen_n(char *str);
