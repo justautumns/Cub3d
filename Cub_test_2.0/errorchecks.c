@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errorchecks.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mehmeyil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 21:50:22 by mehmeyil          #+#    #+#             */
-/*   Updated: 2024/08/07 11:55:37 by mtrojano         ###   ########.fr       */
+/*   Updated: 2024/08/18 13:36:02 by mehmeyil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,69 @@ int	check_map(char *str, t_data *d)
 	if (read_from_map(fd, d) == -1)
 		return (-1);
 	close(fd);
+	return (0);
+}
+
+int	check_tab(t_data *d)
+{
+	int	m;
+	int	k;
+
+	m = 0;
+	while (m < d->map_max_width)
+	{
+		k = 0;
+		while (k < d->map_max_height)
+		{
+			if (d->map[m][k] == '\t')
+				return (-1);
+			k++;
+		}
+		m++;
+	}
+	return (0);
+}
+int	wall_check(t_data *d)
+{
+	int	m;
+
+	m = 0;
+	while (m < d->map_max_height)
+	{
+		if ((d->map[0][m] != '1') || (d->map[d->map_max_width - 1][m] != '1'))
+			return (-1);
+		m++;
+	}
+	m = 0;
+	while(m < d->map_max_width)
+	{
+		if ((d->map[m][0] != '1') || (d->map[m][d->map_max_height - 1] != '1'))
+			return (-1);
+		m++;
+	}
+	return (0);
+}
+
+int	check_space(t_data *d)
+{
+	int	m;
+	int	k;
+
+	m = 1;
+	while (m < d->map_max_width - 1)
+	{
+		k = 1;
+		while (k < d->map_max_height -1)
+		{
+			if (d->map[m][k] == '0')
+			{
+				if ((d->map[m -1][k] == ' ') || (d->map[m + 1][k] == ' ')
+					 || (d->map[m][k - 1] == ' ') || (d->map[m][k + 1] == ' '))
+					return (-1);
+			}
+			k++;
+		}
+		m++;
+	}
 	return (0);
 }
