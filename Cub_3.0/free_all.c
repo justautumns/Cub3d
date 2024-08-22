@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 04:56:40 by mtrojano          #+#    #+#             */
-/*   Updated: 2024/08/07 20:22:59 by mtrojano         ###   ########.fr       */
+/*   Updated: 2024/08/22 14:19:52 by mehmeyil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ void	free_all(t_data *d)
 		mlx_destroy_image(d->root, d->image);
 	if (d->window)
 		mlx_destroy_window(d->root, d->window);
-	if (d->img_addr)
-		free(d->img_addr);
+	// if (d->img_addr)
+	// 	free(d->img_addr); // Error comes from here as it's already freed. (Error was core dump)
 	if (d->root)
 	{
 		mlx_destroy_display(d->root);

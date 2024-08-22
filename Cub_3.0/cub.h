@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 11:27:29 by mtrojano          #+#    #+#             */
-/*   Updated: 2024/08/20 18:57:19 by mtrojano         ###   ########.fr       */
+/*   Updated: 2024/08/22 14:27:38 by mehmeyil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@
 #define EAST 2 * PI
 #define DEGREE 0.0174533
 #define FOV 60
-#define MOVE_SPEED 8.5
+#define MOVE_SPEED 1.5
 #define DIST_FROM_WALL 3
-#define ROTATION_SPEED DEGREE * 4
+#define ROTATION_SPEED DEGREE * 1
 
 typedef struct tex
 {
@@ -154,3 +154,4 @@ void	free_all(t_data *d);
 int		check_map(char *str, t_data *d);
 int		ft_strlen_n(char *str);
 char	*remove_nl(char *str);
+int		check_actual_map(t_data *data);
