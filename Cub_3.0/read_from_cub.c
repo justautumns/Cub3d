@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_from_cub.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 00:16:20 by mehmeyil          #+#    #+#             */
-/*   Updated: 2024/08/20 18:45:50 by mtrojano         ###   ########.fr       */
+/*   Updated: 2024/08/23 04:57:18 by mehmeyil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -260,6 +260,45 @@ int	finish_reading(int fd)
 	}
 	return (0);
 }
+int	just_spaces(char *line)
+{
+    int    i;
+
+    i = 0;
+    while(line[i] != '\n')
+    {
+        if (line[i] != ' ')
+            return (-1);
+        i++;
+    }
+    return (0);
+}
+int    check_before_map(char *line)
+{
+    int    i;
+
+    i = 0;
+    if (ft_strlen_n(line) > 1)
+    {
+        if (just_spaces(line) == 0)
+            return (-1);
+        while (line[i] != '\n')
+        {
+            if (line[i] != ' ' && line[i] != '1' && line[i] != '0'
+				&& line[i] != 'N' && line[i] != 'S' && line[i] != 'W'
+				&& line[i] != 'E')
+				return (-1);
+            i++;
+        }
+        return (0);
+    }
+    else
+    {
+        if (line[0] != '\n')
+            return (-1);
+    }
+    return (0);
+}
 
 int	check_line(char *line, t_data *d)
 {
@@ -267,7 +306,8 @@ int	check_line(char *line, t_data *d)
 		return (-1);
 	if (line && ft_strncmp(line, "\n", 1) != 0)
 	{
-		//need to check if line is only spaces for example (that is wrong -> return (-1))
+		if (just_spaces(line) == 0)
+            return (ft_error("There can't be spaces between arguments\n"));
 		if (arg_validation_map(d, line) == -1)
 			return (-1);
 	}
@@ -287,16 +327,20 @@ int	get_actual_map(t_data *d, int fd, char *line)
 		return (ft_error("Error: malloc failed\n"));
 	while (map_line)
 	{
-		d->map = add_to_array(d->map, map_line);
-		if (!d->map)
-			return (free(map_line), ft_error("Error: malloc failed\n"));
+		if (check_before_map(map_line) == -1)
+            return (free(map_line), ft_error("Map contains too many arguments\n"));
+		if (map_line[0] != '\n')
+		{
+			d->map = add_to_array(d->map, map_line);
+			if (!d->map)
+				return (free(map_line), ft_error("Error: malloc failed\n"));
+		}
 		free(map_line);
 		map_line = get_next_line(fd);
 		if (map_line && ft_strncmp(map_line, "Error", 5) == 0)
 			return (ft_error("Error: malloc failed\n"));
 	}
-	free(map_line);
-	return (0);
+	return (free(map_line), 0);
 }
 
 int	read_from_map(int fd, t_data *d)

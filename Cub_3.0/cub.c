@@ -6,7 +6,7 @@
 /*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 11:27:10 by mtrojano          #+#    #+#             */
-/*   Updated: 2024/08/22 18:33:09 by mehmeyil         ###   ########.fr       */
+/*   Updated: 2024/08/23 05:09:09 by mehmeyil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ int	main(int ac, char **av)
 		return (free_all(&d), -1);
 	if (check_actual_map(&d) == -1)
 		return (free_all(&d), -1);
-	//middle_check(&d);
 	get_player(&d);
 	get_player_angle(&d);
 	d.root = mlx_init();

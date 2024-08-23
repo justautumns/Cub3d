@@ -3,7 +3,8 @@ CC = cc -Wall -Wextra -Werror -g
 
 SOURCES = cub.c movement.c draw.c utils.c movement_validation.c \
 			rotations.c lines_check.c raycasting.c errorchecks.c \
-			free_all.c getters.c init.c read_from_cub.c errorcheck2.c
+			free_all.c getters.c init.c read_from_cub.c errorcheck2.c \
+			errorcheck3.c
 
 OBJECTS = ${SOURCES:.c=.o}
 
