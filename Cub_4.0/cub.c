@@ -6,7 +6,7 @@
 /*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 11:27:10 by mtrojano          #+#    #+#             */
-/*   Updated: 2024/08/23 09:55:49 by mtrojano         ###   ########.fr       */
+/*   Updated: 2024/08/23 18:18:29 by mtrojano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,3 @@ int	main(int ac, char **av)
 	mlx_loop_hook(d.root, move_player, &d);
 	mlx_loop(d.root);
 }
-
-//direction of the arrow is fine, can be kinda seen when TILE SIZE in cub.h is changed to 84
-//but i do not know yet exactly why isn't it displaying correctly...

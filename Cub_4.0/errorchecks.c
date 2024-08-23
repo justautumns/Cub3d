@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errorchecks.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 21:50:22 by mehmeyil          #+#    #+#             */
-/*   Updated: 2024/08/23 18:11:43 by mehmeyil         ###   ########.fr       */
+/*   Updated: 2024/08/23 18:26:08 by mtrojano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ int	check_map(char *str, t_data *d)
 {
 	int		fd;
 
-	fd = open(str, __O_DIRECTORY);
-	if (fd)
-		return (ft_error("This is a directory, wtf are u trying to do\n"), -1);
+	// fd = open(str, __O_DIRECTORY); doesn't let the file open too...
+	// if (fd)
+	// 	return (ft_error("This is a directory, wtf are u trying to do\n"), -1);
 	fd = open(str, O_RDONLY);
 	if (fd < 1)
 		return (ft_error("File cannot be opened\n") -1);

@@ -3,14 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   read_check_colors.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 07:22:03 by mtrojano          #+#    #+#             */
-/*   Updated: 2024/08/23 18:06:30 by mehmeyil         ###   ########.fr       */
+/*   Updated: 2024/08/23 18:46:38 by mtrojano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
+
+//need to check -> len of arguments[0]; more than 1 -> error; (example: "F," <- wrong same for "NO,") 
+//and then enough if check d->colors_f and d->colors_c if there are only 2 commas and not after each other.
+//or in assign_fc() -> then len of name and commas in all_values.
+
+void	print_arr(char **arr)
+{
+	int i = 0;
+
+	while (arr[i])
+	{
+		printf("'%s'", arr[i]);
+		i++;
+	}
+}
 
 int	assign_fc(t_data *d, char *name, char *all_values)
 {
@@ -99,10 +114,10 @@ int	check_numbers(t_data *d, char **arguments, int place)
 	if (ft_strncmp(arguments[0], "F", 1) == 0)
 	{
 		rgb = ft_split(d->color_f, ',');
-		// if (check_rgb_is_valid(rgb) == -1)
-		// 	printf("Say something\n");
 		if (!rgb)
 			return (ft_error("Error: malloc failed\n"));
+		// if (check_rgb_is_valid(rgb) == -1)
+		// 	printf("Say something\n");
 		if (check_for_floor(d, rgb) == -1)
 			return (free_env(&rgb), -1);
 	}
