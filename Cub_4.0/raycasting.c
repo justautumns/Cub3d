@@ -6,7 +6,7 @@
 /*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 11:16:23 by mtrojano          #+#    #+#             */
-/*   Updated: 2024/08/20 18:40:03 by mtrojano         ###   ########.fr       */
+/*   Updated: 2024/08/23 09:53:22 by mtrojano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	draw_tex_slice(t_data *d, int x, int nesw)
 	while (y < d->tex_slice_height)
 	{
 		tex_y = (y * TILE_SIZE) / d->tex_slice_height;
+		//printf("tex_y = %d\nslice height = %d\n", tex_y, d->tex_slice_height);
 		color = ((int *)d->tex->tex_data[nesw])[tex_y
 			* (d->tex->tex_line_len[nesw] / 4) + d->tex_x];
 		if (start >= 0 && start < WIN_HEIGHT)
@@ -60,9 +61,10 @@ void	determine_closer_contact_point(t_data *d)
 		d->ray_y = d->horizontal_y;
 		d->dist_h = d->dist_h * cos(d->player_angle - d->ray_angle); // for fish eye effect
 		d->tex_slice_height = (70 * WIN_HEIGHT) / d->dist_h; // 100 cause map is 10 by 10, later should be max x and/or y or actually whatever works best
-		// if (d->tex_slice_height > WIN_HEIGHT)
-		// 	d->tex_slice_height = WIN_HEIGHT;
-		d->tex_x = (int)fmod(d->ray_x, TILE_SIZE);
+		if (determine_texture(d) == 0)
+			d->tex_x = (int)fmod(d->ray_x, TILE_SIZE);
+		else
+			d->tex_x = TILE_SIZE - 1 - (int)fmod(d->ray_x, TILE_SIZE);
 	}
 	if (d->dist_v < d->dist_h)
 	{
@@ -70,9 +72,10 @@ void	determine_closer_contact_point(t_data *d)
 		d->ray_y = d->vertical_y;
 		d->dist_v = d->dist_v * cos(d->player_angle - d->ray_angle);
 		d->tex_slice_height = (70 * WIN_HEIGHT) / d->dist_v;
-		// if (d->tex_slice_height > WIN_HEIGHT)
-		// 	d->tex_slice_height = WIN_HEIGHT;
-		d->tex_x = (int)fmod(d->ray_y, TILE_SIZE);
+		if (determine_texture(d) == 1)
+			d->tex_x = (int)fmod(d->ray_y, TILE_SIZE);
+		else
+			d->tex_x = TILE_SIZE - 1 - (int)fmod(d->ray_y, TILE_SIZE);
 	}
 }
 

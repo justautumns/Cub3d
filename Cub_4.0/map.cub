@@ -1,7 +1,7 @@
-NO ./textures/deneme0.xpm
-SO ./textures/deneme1.xpm
-WE ./textures/deneme2.xpm
-EA ./textures/deneme3.xpm
+NO ./textures/arrow.xpm
+SO ./textures/arrow.xpm
+WE ./textures/arrow.xpm
+EA ./textures/arrow.xpm
 
 F 220,100,0
 C 225,30,0
