@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 11:27:29 by mtrojano          #+#    #+#             */
-/*   Updated: 2024/08/23 09:09:25 by mtrojano         ###   ########.fr       */
+/*   Updated: 2024/08/23 17:24:12 by mehmeyil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,3 +179,4 @@ char	*remove_nl(char *str);
 int		check_actual_map(t_data *data);
 int		check_space(char **map);
 int		player_pos_valid(t_data *d);
+int		check_rgb_is_valid(char **str);

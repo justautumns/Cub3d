@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_check_colors.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 07:22:03 by mtrojano          #+#    #+#             */
-/*   Updated: 2024/08/23 07:23:31 by mtrojano         ###   ########.fr       */
+/*   Updated: 2024/08/23 18:06:30 by mehmeyil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ int	check_numbers(t_data *d, char **arguments, int place)
 	if (ft_strncmp(arguments[0], "F", 1) == 0)
 	{
 		rgb = ft_split(d->color_f, ',');
+		// if (check_rgb_is_valid(rgb) == -1)
+		// 	printf("Say something\n");
 		if (!rgb)
 			return (ft_error("Error: malloc failed\n"));
 		if (check_for_floor(d, rgb) == -1)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errorcheck2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 14:24:19 by mehmeyil          #+#    #+#             */
-/*   Updated: 2024/08/23 07:00:06 by mtrojano         ###   ########.fr       */
+/*   Updated: 2024/08/23 14:22:41 by mehmeyil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	wall_check(char **map)
 {
 	int	m;
 	int	k;
-
+	
 	k = 0;
 	while (map[0][k] == ' ')
 		k++;
@@ -90,6 +90,8 @@ int	wall_check(char **map)
 
 int	check_actual_map(t_data *data)
 {
+	if (!data->map[0])
+		return (-1);
 	if (check_tab(data) == -1)
 		return (ft_error("Map cannot have tabs!\n"));
 	else if (wall_check(data->map) == -1)

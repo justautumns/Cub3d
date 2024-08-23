@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errorchecks.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 21:50:22 by mehmeyil          #+#    #+#             */
-/*   Updated: 2024/08/23 07:31:44 by mtrojano         ###   ########.fr       */
+/*   Updated: 2024/08/23 18:11:43 by mehmeyil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,12 @@ int	check_map(char *str, t_data *d)
 {
 	int		fd;
 
-	//check permissions
+	fd = open(str, __O_DIRECTORY);
+	if (fd)
+		return (ft_error("This is a directory, wtf are u trying to do\n"), -1);
 	fd = open(str, O_RDONLY);
 	if (fd < 1)
-		return (-1);
+		return (ft_error("File cannot be opened\n") -1);
 	if (read_from_map(fd, d) == -1)
 		return (close(fd), -1);
 	close(fd);
