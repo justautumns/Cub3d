@@ -6,16 +6,16 @@
 /*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 07:22:03 by mtrojano          #+#    #+#             */
-/*   Updated: 2024/08/23 23:02:46 by mehmeyil         ###   ########.fr       */
+/*   Updated: 2024/08/24 14:02:56 by mehmeyil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-//need to check -> len of arguments[0]; more than 1 -> error (THIS IS DONE AND TESTED, LINE 105 and 121 one new function)!! 
-//; (example: "F," <- wrong same for "NO,") 
+//need to check -> len of arguments[0]; more than 1 -> error (THIS IS DONE AND TESTED => LINE 105 and 121 I added one new function)!! 
+//; (example: "F," <- wrong same for "NO,") (THIS IS DONE AND TESTED => I've added checks for Directions (WE,NO,EA,SO in read_check_tex_path.c))
 //and then enough if check d->colors_f and d->colors_c if there are only 2 commas and not after each other.
-//or in assign_fc() -> then len of name and commas in all_values. (I HAVE TO LEAVE NOW GONNA DO IT TOMORROW)
+//or in assign_fc() -> then len of name and commas in all_values. (THIS IS DONE AND TESTED => IN COMMA CHECK HOWEVER I GOT QUESTIONS FOR YOU)
 
 void	print_arr(char **arr)
 {
@@ -27,7 +27,20 @@ void	print_arr(char **arr)
 		i++;
 	}
 }
-
+int	check_for_commas(char *str)
+{
+	if (!str)
+		return (-1);
+	while (*str)
+	{
+		if (*str == ',')
+			str++;
+		if (!(*str >= '0' && *str <= '9'))
+			return (-1);
+		str++;
+	}
+	return (0);
+}
 int	assign_fc(t_data *d, char *name, char *all_values)
 {
 	if (ft_strncmp(name, "F", 1) == 0)
@@ -35,6 +48,8 @@ int	assign_fc(t_data *d, char *name, char *all_values)
 		if (d->color_f)
 			return (ft_error("Cannot have more than one F\n"));
 		d->color_f = ft_strdup(all_values);
+		if (check_for_commas(d->color_f) == -1)
+			return (ft_error("Cannot have empty value\n"));
 		if (!d->color_f)
 			return (ft_error("Error: malloc failed\n"));
 	}
@@ -43,6 +58,8 @@ int	assign_fc(t_data *d, char *name, char *all_values)
 		if (d->color_c)
 			return (ft_error("Cannot have more than one C\n"));
 		d->color_c = ft_strdup(all_values);
+		if (check_for_commas(d->color_f) == -1)
+			return (ft_error("Cannot have empty value\n"));
 		if (!d->color_c)
 			return (ft_error("Error: malloc failed\n"));
 	}
