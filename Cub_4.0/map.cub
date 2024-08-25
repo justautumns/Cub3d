@@ -1,10 +1,10 @@
-NO, ./textures/deneme1.xpm
+NO ./textures/deneme1.xpm
 SO ./textures/deneme1.xpm
 WE ./textures/deneme1.xpm
 EA ./textures/deneme1.xpm
 
-F, 220,100, ,0
-C 225,30,0
+F 220,100,30
+C 225,30,50
 
 
 111111111111111111
