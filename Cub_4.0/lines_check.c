@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lines_check.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 10:58:52 by mtrojano          #+#    #+#             */
-/*   Updated: 2024/08/27 21:50:46 by mehmeyil         ###   ########.fr       */
+/*   Updated: 2024/08/27 23:20:22 by mtrojano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	get_distance_vertical(t_data *d, int start)
 	{
 		d->map_x = (int)(d->ray_x) / TILE_SIZE;
 		d->map_y = (int)(d->ray_y) / TILE_SIZE;
+		if (d->map_y < 0 || d->map_x < 0 || d->map_y > d->map_max_height || d->map_x > ft_strlen_n(d->map[d->map_y]))
+			return ;
 		if (d->map_x >= 0 && d->map_y >= 0 && d->map_x < d->map_max_width
 			&& d->map_y < d->map_max_height
 			&& d->map[d->map_y][d->map_x] == '1')
@@ -75,6 +77,8 @@ void	get_distance_horizontal(t_data *d, int start)
 	{
 		d->map_x = (int)(d->ray_x) / TILE_SIZE;
 		d->map_y = (int)(d->ray_y) / TILE_SIZE;
+		if (d->map_y < 0 || d->map_x < 0 || d->map_y > d->map_max_height || d->map_x > ft_strlen_n(d->map[d->map_y]))
+			return ;
 		if (d->map_x >= 0 && d->map_y >= 0 && d->map_x < d->map_max_width
 			&& d->map_y < d->map_max_height
 			&& d->map[d->map_y][d->map_x] == '1')
