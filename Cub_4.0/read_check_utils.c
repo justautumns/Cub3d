@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_check_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 07:26:35 by mtrojano          #+#    #+#             */
-/*   Updated: 2024/08/23 07:41:54 by mtrojano         ###   ########.fr       */
+/*   Updated: 2024/08/27 21:27:47 by mehmeyil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,20 +61,15 @@ int	check_before_map(char *line)
 	{
 		if (just_spaces(line) == 0)
 			return (-1);
-		while (line[i] != '\n')
+		while (line[i] != '\n' && line[i] != '\0')
 		{
 			if (line[i] != ' ' && line[i] != '1' && line[i] != '0'
 				&& line[i] != 'N' && line[i] != 'S' && line[i] != 'W'
-				&& line[i] != 'E')
+				&& line[i] != 'E' && line[i] != '\t')
 				return (-1);
 			i++;
 		}
 		return (0);
-	}
-	else
-	{
-		if (line[0] != '\n')
-			return (-1);
 	}
 	return (0);
 }

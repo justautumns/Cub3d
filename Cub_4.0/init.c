@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 07:12:30 by mtrojano          #+#    #+#             */
-/*   Updated: 2024/08/23 06:12:49 by mtrojano         ###   ########.fr       */
+/*   Updated: 2024/08/27 21:37:11 by mehmeyil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ void	init_stuff(t_data *d)
 	d->colors->f_b = -1;
 	d->colors->f_g = -1;
 	d->colors->f_r = -1;
+	d->map_y = 0;
+	d->map_x = 0;
 	d->root = NULL;
 	d->window = NULL;
 	d->image = NULL;

@@ -6,7 +6,7 @@
 /*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 21:50:22 by mehmeyil          #+#    #+#             */
-/*   Updated: 2024/08/24 12:57:34 by mehmeyil         ###   ########.fr       */
+/*   Updated: 2024/08/27 13:51:17 by mehmeyil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ int	ft_error(char *str)
 
 int	check_map(char *str, t_data *d)
 {
-	int		fd;
-	
+	int	fd;
+
 	fd = open(str, O_RDONLY);
 	if (fd < 1)
-		return (ft_error("File cannot be opened\n") -1);
+		return (ft_error("File cannot be opened\n"));
 	if (read_from_map(fd, d) == -1)
 		return (close(fd), -1);
 	close(fd);

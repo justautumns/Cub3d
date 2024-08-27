@@ -6,7 +6,7 @@
 /*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 11:27:29 by mtrojano          #+#    #+#             */
-/*   Updated: 2024/08/24 13:20:19 by mehmeyil         ###   ########.fr       */
+/*   Updated: 2024/08/27 17:33:39 by mehmeyil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 #define DEGREE 0.0174533
 #define FOV 60
 #define MOVE_SPEED 1.5
-#define DIST_FROM_WALL 3
+#define DIST_FROM_WALL 10
 #define ROTATION_SPEED DEGREE * 0.5
 
 typedef struct tex
@@ -166,6 +166,9 @@ int		finish_reading(int fd);
 int		just_spaces(char *line);
 int		check_before_map(char *line);
 int		compare_check(char *name);
+int		check_format(char *all_values, int i, int comma, int format);
+int		check_numbers2(t_data *d, char **arguments);
+
 
 //Errorchecks
 int		arg_check(char *str);
@@ -180,3 +183,4 @@ int		check_actual_map(t_data *data);
 int		check_space(char **map);
 int		player_pos_valid(t_data *d);
 int		check_rgb_is_valid(char **str);
+int		check_wall_lenght(char **map);

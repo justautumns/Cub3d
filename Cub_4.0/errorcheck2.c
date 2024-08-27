@@ -6,7 +6,7 @@
 /*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 14:24:19 by mehmeyil          #+#    #+#             */
-/*   Updated: 2024/08/23 14:22:41 by mehmeyil         ###   ########.fr       */
+/*   Updated: 2024/08/27 19:02:57 by mehmeyil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	wall_check2(char **map, int k, int m)
 		while (map[m][k] == 32)
 			k++;
 		if (map[m][k] != '1')
-			return (-1);
+			return (printf("blah\n"), -1);
 		m++;
 	}
 	m = 0;
@@ -63,7 +63,7 @@ int	wall_check(char **map)
 {
 	int	m;
 	int	k;
-	
+
 	k = 0;
 	while (map[0][k] == ' ')
 		k++;
@@ -90,6 +90,7 @@ int	wall_check(char **map)
 
 int	check_actual_map(t_data *data)
 {
+	// display_map(data);
 	if (!data->map[0])
 		return (-1);
 	if (check_tab(data) == -1)
@@ -98,6 +99,8 @@ int	check_actual_map(t_data *data)
 		return (ft_error("Map is not protected by walls\n"));
 	else if (player_pos_valid(data) == -1)
 		return (ft_error("Map has multiple or none spawning pos\n"));
+	else if (check_wall_lenght(data->map) == -1)
+		return (ft_error("Map is not protected by walls\n"));
 	else if (check_space(data->map) == -1)
 		return (ft_error("Map has void or Player is in the void\n"));
 	return (0);
