@@ -6,7 +6,7 @@
 /*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 10:58:52 by mtrojano          #+#    #+#             */
-/*   Updated: 2024/08/27 21:47:38 by mehmeyil         ###   ########.fr       */
+/*   Updated: 2024/08/27 21:50:46 by mehmeyil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ float	distance(float x1, float y1, float x2, float y2)
 
 void	get_distance_vertical(t_data *d, int start)
 {
-	while (start < d->map_max_width && d->map[d->map_y][d->map_x] != '\n')
+	while (start < d->map_max_width)
 	{
 		d->map_x = (int)(d->ray_x) / TILE_SIZE;
 		d->map_y = (int)(d->ray_y) / TILE_SIZE;
@@ -71,7 +71,7 @@ void	vertical_line_check(t_data *d)
 
 void	get_distance_horizontal(t_data *d, int start)
 {
-	while (start < d->map_max_height && d->map[d->map_y][d->map_x])
+	while (start < d->map_max_height)
 	{
 		d->map_x = (int)(d->ray_x) / TILE_SIZE;
 		d->map_y = (int)(d->ray_y) / TILE_SIZE;
