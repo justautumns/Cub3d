@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errorcheck2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 14:24:19 by mehmeyil          #+#    #+#             */
-/*   Updated: 2024/08/29 23:20:47 by mtrojano         ###   ########.fr       */
+/*   Updated: 2024/08/30 01:01:42 by mehmeyil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	wall_check2(char **map, int k, int m)
 		m++;
 	m--;
 	k = 0;
-	while (map[m][k] != '\n')
+	while (map[m][k] != '\n' && map[m][k] != '\0')
 	{
 		if (map[m][k] == 32)
 			k++;
@@ -79,9 +79,9 @@ int	wall_check(char **map)
 	while (map[m])
 	{
 		k = 0;
-		while (map[m][k] != '\n')
+		while (map[m][k] != '\n' && map[m][k] != '\0')
 			k++;
-		if (map[m][k - 1] != '1')
+		if (map[m][k - 1] != '1' && map[m][k - 1] != ' ')
 			return (-1);
 		m++;
 	}

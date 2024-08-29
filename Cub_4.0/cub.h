@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 11:27:29 by mtrojano          #+#    #+#             */
-/*   Updated: 2024/08/29 21:57:22 by mtrojano         ###   ########.fr       */
+/*   Updated: 2024/08/30 01:06:55 by mehmeyil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,9 @@
 #define DEGREE 0.0174533
 #define FOV 60
 #define MOVE_SPEED 2
-#define DIST_FROM_WALL 10
-#define ROTATION_SPEED DEGREE * 0.7
+#define DIST_FROM_WALL 15
+#define ROTATION_SPEED DEGREE * 0.5
+#define ROTATION_SPEED_W DEGREE * 2
 
 typedef struct tex
 {

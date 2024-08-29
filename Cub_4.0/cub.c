@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 11:27:10 by mtrojano          #+#    #+#             */
-/*   Updated: 2024/08/29 19:25:40 by mtrojano         ###   ########.fr       */
+/*   Updated: 2024/08/30 00:26:38 by mehmeyil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,15 @@ char	*remove_nl(char *str)
 	int		i;
 
 	temp = malloc(ft_strlen_n(str));
+	if (!temp)
+		return (NULL);
 	i = 0;
-	while (str[i] != '\n')
+	while (str[i] != '\0')
 	{
 		temp[i] = str[i];
 		i++;
+		if (str[i] == '\n')
+			break;
 	}
 	temp[i] = '\0';
 	free(str);
@@ -72,6 +76,8 @@ int	main(int ac, char **av)
 	if (do_checks(ac, av, &d) == -1)
 		return (-1);
 	d.root = mlx_init();
+	if (!d.root)
+		return (free_all(&d), -1);
 	d.window = mlx_new_window(d.root, WIN_WIDTH, WIN_HEIGHT, "Cub3D");
 	d.floor_color = get_color_from_rgb(d.colors->f_r,
 			d.colors->f_g, d.colors->f_b);

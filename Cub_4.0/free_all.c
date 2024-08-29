@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 04:56:40 by mtrojano          #+#    #+#             */
-/*   Updated: 2024/08/23 06:56:08 by mtrojano         ###   ########.fr       */
+/*   Updated: 2024/08/30 00:38:59 by mehmeyil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	free_tex(t_data *d)
 	int	i;
 
 	i = 0;
+	if (!d->tex)
+		return ;
 	if (d->tex->tex_path)
 		free_env(&d->tex->tex_path);
 	if (d->tex->tex_data)
@@ -40,6 +42,8 @@ void	free_tex(t_data *d)
 
 void	free_tex_2(t_data *d)
 {
+	if (!d->tex)
+		return ;
 	if (d->tex->no_path)
 		free(d->tex->no_path);
 	if (d->tex->so_path)
@@ -54,9 +58,9 @@ void	free_all(t_data *d)
 {
 	free_tex(d);
 	free_tex_2(d);
-	if (d->image)
+	if (d->root && d->image)
 		mlx_destroy_image(d->root, d->image);
-	if (d->window)
+	if (d->root && d->window)
 		mlx_destroy_window(d->root, d->window);
 	if (d->root)
 	{

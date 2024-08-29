@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_from_cub_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 20:53:41 by mtrojano          #+#    #+#             */
-/*   Updated: 2024/08/29 20:56:36 by mtrojano         ###   ########.fr       */
+/*   Updated: 2024/08/30 00:54:21 by mehmeyil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,10 @@ char	*skip_nl_before_map(int fd, char *line)
 	{
 		free(skip_line);
 		skip_line = get_next_line(fd);
+		if (!skip_line)
+			return (NULL);
 		if (skip_line && ft_strncmp(skip_line, "Error", 5) == 0)
-			return (ft_error("Error: malloc failed\n"), NULL);
+			return (free(skip_line), ft_error("Error: malloc failed\n"), NULL);
 	}
 	return (skip_line);
 }
