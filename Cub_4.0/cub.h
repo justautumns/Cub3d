@@ -6,7 +6,7 @@
 /*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 11:27:29 by mtrojano          #+#    #+#             */
-/*   Updated: 2024/08/29 17:45:32 by mtrojano         ###   ########.fr       */
+/*   Updated: 2024/08/29 21:57:22 by mtrojano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@
 // #define EAST 2 * PI
 #define DEGREE 0.0174533
 #define FOV 60
-#define MOVE_SPEED 1.5
+#define MOVE_SPEED 2
 #define DIST_FROM_WALL 10
-#define ROTATION_SPEED DEGREE * 0.5
+#define ROTATION_SPEED DEGREE * 0.7
 
 typedef struct tex
 {
@@ -159,6 +159,7 @@ int		join_assign_fc_colors(t_data *d, char **arguments);
 int		check_for_floor(t_data *d, char **rgb);
 int		check_for_ceiling(t_data *d, char **rgb);
 int		check_numbers(t_data *d, char **arguments, int place);
+int		check_space_colors(char **colors);
 
 //Read_check_utils
 bool	have_all_info(t_data *d);
@@ -169,6 +170,14 @@ int		compare_check(char *name);
 int		check_format(char *all_values, int i, int comma, int format);
 int		check_numbers2(t_data *d, char **arguments);
 
+//read_from_cub_utils
+int		check_empty_line_betweeen(char **map);
+char	*skip_nl_before_map(int fd, char *line);
+
+//lines_check_utils
+int		check_if_outside_h(t_data *d);
+int		check_if_outside_v(t_data *d);
+float	distance(float x1, float y1, float x2, float y2);
 
 //Errorchecks
 int		arg_check(char *str);
@@ -183,4 +192,4 @@ int		check_actual_map(t_data *data);
 int		check_space(char **map);
 int		player_pos_valid(t_data *d);
 int		check_rgb_is_valid(char **str);
-int		check_wall_lenght(char **map);
+int		check_wall_lenght(char **map, int m, int k, int dif);

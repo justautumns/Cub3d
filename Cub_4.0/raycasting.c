@@ -6,7 +6,7 @@
 /*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 11:16:23 by mtrojano          #+#    #+#             */
-/*   Updated: 2024/08/29 17:48:43 by mtrojano         ###   ########.fr       */
+/*   Updated: 2024/08/29 20:52:05 by mtrojano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	draw_tex_slice(t_data *d, int x, int nesw)
 	while (y < d->tex_slice_height)
 	{
 		tex_y = (y * TILE_SIZE) / d->tex_slice_height;
-		//printf("tex_y = %d\nslice height = %d\n", tex_y, d->tex_slice_height);
 		color = ((int *)d->tex->tex_data[nesw])[tex_y
 			* (d->tex->tex_line_len[nesw] / 4) + d->tex_x];
 		if (start >= 0 && start < WIN_HEIGHT)

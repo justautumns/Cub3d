@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_from_cub.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 00:16:20 by mehmeyil          #+#    #+#             */
-/*   Updated: 2024/08/27 21:24:42 by mehmeyil         ###   ########.fr       */
+/*   Updated: 2024/08/29 20:56:26 by mtrojano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,19 +79,6 @@ int	check_line(char *line, t_data *d)
 	return (0);
 }
 
-int	check_empty_line_betweeen(char **map)
-{
-	int	y;
-
-	y = 0;
-	while (map[y])
-		y++;
-	y--;
-	if (y > 1 && map[y - 1] && map[y - 1][0] == '\n')
-		return (-1);
-	return (0);
-}
-
 int	get_actual_map(t_data *d, int fd, char *line)
 {
 	char	*map_line;
@@ -118,27 +105,6 @@ int	get_actual_map(t_data *d, int fd, char *line)
 			return (ft_error("Error: malloc failed\n"));
 	}
 	return (free(map_line), 0);
-}
-
-char	*skip_nl_before_map(int fd, char *line)
-{
-	char	*skip_line;
-
-	if (!line)
-		return (ft_error("Error: Map incomplete\n"), NULL);
-	if (line && ft_strncmp(line, "Error", 5) == 0)
-		return (ft_error("Error: malloc failed\n"), NULL);
-	skip_line = ft_strdup(line);
-	if (!skip_line)
-		return (ft_error("Error: malloc failed\n"), NULL);
-	while (skip_line[0] == '\n')
-	{
-		free(skip_line);
-		skip_line = get_next_line(fd);
-		if (skip_line && ft_strncmp(skip_line, "Error", 5) == 0)
-			return (ft_error("Error: malloc failed\n"), NULL);
-	}
-	return (skip_line);
 }
 
 int	read_from_map(int fd, t_data *d)

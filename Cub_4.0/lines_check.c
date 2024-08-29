@@ -6,42 +6,11 @@
 /*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 10:58:52 by mtrojano          #+#    #+#             */
-/*   Updated: 2024/08/29 18:35:20 by mtrojano         ###   ########.fr       */
+/*   Updated: 2024/08/29 20:58:48 by mtrojano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
-
-float	distance(float x1, float y1, float x2, float y2)
-{
-	return (sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1)));
-}
-
-int	check_if_outside_v(t_data *d)
-{
-	if (d->map_y < 0 || d->map_x < 0 || d->map_y > d->map_max_height
-		|| d->map_x > ft_strlen_n(d->map[d->map_y]))
-	{
-		d->dist_v = distance(d->player_x, d->player_y, d->ray_x, d->ray_y);
-		d->vertical_x = d->ray_x;
-		d->vertical_y = d->ray_y;
-		return (-1);
-	}
-	return (0);
-}
-
-int	check_if_outside_h(t_data *d)
-{
-	if (d->map_y < 0 || d->map_x < 0 || d->map_y > d->map_max_height
-		|| d->map_x > ft_strlen_n(d->map[d->map_y]))
-	{
-		d->dist_h = distance(d->player_x, d->player_y, d->ray_x, d->ray_y);
-		d->horizontal_x = d->ray_x;
-		d->horizontal_y = d->ray_y;
-		return (-1);
-	}
-	return (0);
-}
 
 void	get_distance_vertical(t_data *d, int start)
 {
@@ -78,7 +47,7 @@ void	vertical_line_check(t_data *d)
 	_tan = -tan(d->ray_angle);
 	if (d->ray_angle > PI / 2 && d->ray_angle < (3 * PI / 2)) // looking left
 	{
-		d->ray_x = (((int)d->player_x / TILE_SIZE) * TILE_SIZE) - 0.0001;
+		d->ray_x = (((int)d->player_x / TILE_SIZE) * TILE_SIZE) - 0.001;
 		d->ray_y = (d->player_x - d->ray_x) * _tan + d->player_y;
 		d->x_offset = -TILE_SIZE;
 		d->y_offset = -d->x_offset * _tan;
@@ -132,7 +101,7 @@ void	horizontal_line_check(t_data *d)
 	_tan = -1 / tan(d->ray_angle);
 	if (d->ray_angle > PI) // looking up
 	{
-		d->ray_y = (((int)d->player_y / TILE_SIZE) * TILE_SIZE) - 0.0001;
+		d->ray_y = (((int)d->player_y / TILE_SIZE) * TILE_SIZE) - 0.001;
 		d->ray_x = (d->player_y - d->ray_y) * _tan + d->player_x;
 		d->y_offset = -TILE_SIZE;
 		d->x_offset = -d->y_offset * _tan;

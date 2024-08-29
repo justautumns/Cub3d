@@ -5,7 +5,8 @@ SOURCES = cub.c movement.c draw.c utils.c movement_validation.c \
 			rotations.c lines_check.c raycasting.c errorchecks.c \
 			free_all.c getters.c init.c read_from_cub.c errorcheck2.c \
 			errorcheck3.c key_press.c read_check_colors.c read_check_tex_path.c \
-			read_check_utils.c read_check_colors1.c
+			read_check_utils.c read_check_colors1.c lines_check_utils.c \
+			read_from_cub_utils.c
 
 OBJECTS = ${SOURCES:.c=.o}
 

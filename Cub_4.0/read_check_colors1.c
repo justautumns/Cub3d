@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_check_colors1.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 13:54:03 by mehmeyil          #+#    #+#             */
-/*   Updated: 2024/08/27 16:49:51 by mehmeyil         ###   ########.fr       */
+/*   Updated: 2024/08/29 23:17:24 by mtrojano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,31 @@ int	check_numbers2(t_data *d, char **arguments)
 			return (free_env(&rgb), -1);
 	}
 	free_env(&rgb);
+	return (0);
+}
+
+int	check_space_colors(char **colors)
+{
+	int	i;
+	int	x;
+
+	i = 1;
+	while (colors[i])
+	{
+		x = 0;
+		while (colors[i][x])
+			x++;
+		if (colors[i + 1])
+		{
+			if (ft_isdigit(colors[i][x - 1]) == 2048 && colors[i + 1][0] != ',')
+				return (-1);
+		}
+		else
+		{
+			if (ft_isdigit(colors[i][x - 2]) != 2048)
+				return (-1);
+		}
+		i++;
+	}
 	return (0);
 }

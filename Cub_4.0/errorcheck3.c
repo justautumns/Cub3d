@@ -3,35 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   errorcheck3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 03:36:24 by mehmeyil          #+#    #+#             */
-/*   Updated: 2024/08/27 18:34:06 by mehmeyil         ###   ########.fr       */
+/*   Updated: 2024/08/29 23:18:51 by mtrojano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
-
-int	check_rgb_is_valid(char **str)
-{
-	int	m;
-	int	k;
-
-	m = 0;
-	while (str[m])
-	{
-		k = 0;
-		while (str[m][k])
-		{
-			if (str[m][k] == ' ' || str[m][k] == ',')
-				return (-1);
-			k++;
-		}
-		printf("%s\n", str[m]);
-		m++;
-	}
-	return (0);
-}
 
 int	player_pos_valid(t_data *d)
 {
@@ -71,28 +50,22 @@ int	check_dif(char *str, int dif)
 	return (0);
 }
 
-
-int	check_wall_lenght(char **map)
+int	check_wall_lenght(char **map, int m, int k, int dif)
 {
-	int	m;
-	int	k;
-	int	dif;
-
-	m = 0;
-	k = 0;
 	while (map[m])
 	{
 		k = 1;
-		while (map[m][k] != '\n')//if map is seperated by new line if there are two
+		while (map[m][k] != '\n')
 		{
 			dif = 0;
-			if (map[m + 1] && ft_strlen_n(map[m  + 1]) < ft_strlen_n(map[m]))
+			if (map[m + 1] && ft_strlen_n(map[m + 1]) < ft_strlen_n(map[m]))
 			{
-				dif = ft_strlen_n(map[m  + 1]);
+				dif = ft_strlen_n(map[m + 1]);
 				if (check_dif(map[m], dif) == -1)
-					return (-1);	
+					return (-1);
 			}
-			else if (map[m + 1] && ft_strlen_n(map[m  + 1]) > ft_strlen_n(map[m]))
+			else if (map[m + 1]
+				&& ft_strlen_n(map[m + 1]) > ft_strlen_n(map[m]))
 			{
 				dif = ft_strlen_n(map[m]);
 				if (check_dif(map[m + 1], dif) == -1)
@@ -104,6 +77,7 @@ int	check_wall_lenght(char **map)
 	}
 	return (0);
 }
+
 int	check_space(char **map)
 {
 	int	m;
@@ -126,6 +100,5 @@ int	check_space(char **map)
 		}
 		m++;
 	}
-	
 	return (0);
 }

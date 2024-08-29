@@ -6,7 +6,7 @@
 /*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 11:27:10 by mtrojano          #+#    #+#             */
-/*   Updated: 2024/08/27 22:44:09 by mtrojano         ###   ########.fr       */
+/*   Updated: 2024/08/29 19:25:40 by mtrojano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ int	do_checks(int ac, char **av, t_data *d)
 		return (free_all(d), -1);
 	get_player(d);
 	get_player_angle(d);
-	display_map(d);
 	return (0);
 }
 

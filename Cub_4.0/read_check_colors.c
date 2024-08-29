@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_check_colors.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 07:22:03 by mtrojano          #+#    #+#             */
-/*   Updated: 2024/08/27 16:48:46 by mehmeyil         ###   ########.fr       */
+/*   Updated: 2024/08/29 23:22:48 by mtrojano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ int	check_numbers(t_data *d, char **arguments, int place)
 	char	**rgb;
 
 	rgb = NULL;
+	if (check_space_colors(arguments) == -1)
+		return (ft_error("Invalid format for color arguments\n"));
 	if (place == 0)
 	{
 		if (join_assign_fc_colors(d, arguments) == -1)
@@ -113,6 +115,5 @@ int	check_numbers(t_data *d, char **arguments, int place)
 	}
 	if (check_numbers2(d, arguments) == -1)
 		return (-1);
-	free_env(&rgb);
-	return (0);
+	return (free_env(&rgb), 0);
 }
