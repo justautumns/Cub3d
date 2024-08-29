@@ -6,7 +6,7 @@
 /*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 10:58:52 by mtrojano          #+#    #+#             */
-/*   Updated: 2024/08/27 23:20:22 by mtrojano         ###   ########.fr       */
+/*   Updated: 2024/08/29 18:35:20 by mtrojano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,39 @@ float	distance(float x1, float y1, float x2, float y2)
 	return (sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1)));
 }
 
+int	check_if_outside_v(t_data *d)
+{
+	if (d->map_y < 0 || d->map_x < 0 || d->map_y > d->map_max_height
+		|| d->map_x > ft_strlen_n(d->map[d->map_y]))
+	{
+		d->dist_v = distance(d->player_x, d->player_y, d->ray_x, d->ray_y);
+		d->vertical_x = d->ray_x;
+		d->vertical_y = d->ray_y;
+		return (-1);
+	}
+	return (0);
+}
+
+int	check_if_outside_h(t_data *d)
+{
+	if (d->map_y < 0 || d->map_x < 0 || d->map_y > d->map_max_height
+		|| d->map_x > ft_strlen_n(d->map[d->map_y]))
+	{
+		d->dist_h = distance(d->player_x, d->player_y, d->ray_x, d->ray_y);
+		d->horizontal_x = d->ray_x;
+		d->horizontal_y = d->ray_y;
+		return (-1);
+	}
+	return (0);
+}
+
 void	get_distance_vertical(t_data *d, int start)
 {
 	while (start < d->map_max_width)
 	{
 		d->map_x = (int)(d->ray_x) / TILE_SIZE;
 		d->map_y = (int)(d->ray_y) / TILE_SIZE;
-		if (d->map_y < 0 || d->map_x < 0 || d->map_y > d->map_max_height || d->map_x > ft_strlen_n(d->map[d->map_y]))
+		if (check_if_outside_v(d) == -1)
 			return ;
 		if (d->map_x >= 0 && d->map_y >= 0 && d->map_x < d->map_max_width
 			&& d->map_y < d->map_max_height
@@ -77,7 +103,7 @@ void	get_distance_horizontal(t_data *d, int start)
 	{
 		d->map_x = (int)(d->ray_x) / TILE_SIZE;
 		d->map_y = (int)(d->ray_y) / TILE_SIZE;
-		if (d->map_y < 0 || d->map_x < 0 || d->map_y > d->map_max_height || d->map_x > ft_strlen_n(d->map[d->map_y]))
+		if (check_if_outside_h(d) == -1)
 			return ;
 		if (d->map_x >= 0 && d->map_y >= 0 && d->map_x < d->map_max_width
 			&& d->map_y < d->map_max_height
