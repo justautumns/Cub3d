@@ -6,7 +6,7 @@
 /*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 07:12:30 by mtrojano          #+#    #+#             */
-/*   Updated: 2024/08/30 00:46:24 by mehmeyil         ###   ########.fr       */
+/*   Updated: 2024/08/30 04:39:00 by mehmeyil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	init_textures(t_data *d)
 		return (-1);
 	return (0);
 }
+
 void	init_key_struct(t_data *d)
 {
 	d->keys.w = 0;

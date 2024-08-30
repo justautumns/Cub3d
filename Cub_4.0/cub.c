@@ -6,7 +6,7 @@
 /*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 11:27:10 by mtrojano          #+#    #+#             */
-/*   Updated: 2024/08/30 00:26:38 by mehmeyil         ###   ########.fr       */
+/*   Updated: 2024/08/30 04:38:38 by mehmeyil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*remove_nl(char *str)
 		temp[i] = str[i];
 		i++;
 		if (str[i] == '\n')
-			break;
+			break ;
 	}
 	temp[i] = '\0';
 	free(str);
@@ -77,8 +77,10 @@ int	main(int ac, char **av)
 		return (-1);
 	d.root = mlx_init();
 	if (!d.root)
-		return (free_all(&d), -1);
+		return (free_all(&d), ft_error("Error : mlx init fails\n"));
 	d.window = mlx_new_window(d.root, WIN_WIDTH, WIN_HEIGHT, "Cub3D");
+	if (!d.window)
+		return (free_all(&d), ft_error("Error : mlx window call fails\n"));
 	d.floor_color = get_color_from_rgb(d.colors->f_r,
 			d.colors->f_g, d.colors->f_b);
 	d.ceiling_color = get_color_from_rgb(d.colors->c_r,

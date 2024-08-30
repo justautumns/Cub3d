@@ -1,5 +1,5 @@
-NAME = cub
-CC = cc -Wall -Wextra -Werror -g
+NAME = cub3D
+CC = cc -Wall -Wextra -Werror 
 
 SOURCES = cub.c movement.c draw.c utils.c movement_validation.c \
 			rotations.c lines_check.c raycasting.c errorchecks.c \
@@ -21,7 +21,7 @@ $(NAME): $(OBJECTS)
 	$(CC) -o $(NAME) $(OBJECTS) $(LIBFT) -L ./mlx -lmlx -lXext -lX11 -lm -lz -L/usr/include -Imlx
 
 %.o: %.c
-	$(CC) $(INCLUDE) -o $@ -c $<
+	$(CC) $(INCLUDE) -c $< -o $@ 
 
 clean:
 	make -C ./Libft clean

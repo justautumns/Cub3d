@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 11:16:23 by mtrojano          #+#    #+#             */
-/*   Updated: 2024/08/29 20:52:05 by mtrojano         ###   ########.fr       */
+/*   Updated: 2024/08/30 04:43:10 by mehmeyil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,16 @@ int	determine_texture(t_data *d)
 	if (d->dist_h < d->dist_v)
 	{
 		if (d->ray_angle > 180 * DEGREE)
-			return (0); // NORTH
+			return (0);
 		else if (d->ray_angle > 0 && d->ray_angle < 180 * DEGREE)
-			return (2); // SOUTH
+			return (2);
 	}
 	else
 	{
 		if (d->ray_angle > 90 * DEGREE && d->ray_angle < 270 * DEGREE)
-			return (3); // WEST
+			return (3);
 		else
-			return (1); // EAST
+			return (1);
 	}
 	return (0);
 }
@@ -58,8 +58,8 @@ void	determine_closer_contact_point(t_data *d)
 	{
 		d->ray_x = d->horizontal_x;
 		d->ray_y = d->horizontal_y;
-		d->dist_h = d->dist_h * cos(d->player_angle - d->ray_angle); // for fish eye effect
-		d->tex_slice_height = (70 * WIN_HEIGHT) / d->dist_h; // 100 cause map is 10 by 10, later should be max x and/or y or actually whatever works best
+		d->dist_h = d->dist_h * cos(d->player_angle - d->ray_angle);
+		d->tex_slice_height = (70 * WIN_HEIGHT) / d->dist_h;
 		if (determine_texture(d) == 0)
 			d->tex_x = (int)fmod(d->ray_x, TILE_SIZE);
 		else
@@ -85,7 +85,7 @@ void	cast_rays(t_data *d)
 
 	i = 0;
 	ray_step = FOV * DEGREE / WIN_WIDTH;
-	d->ray_angle = d->player_angle - (FOV / 2) * DEGREE; // minus half of FOV
+	d->ray_angle = d->player_angle - (FOV / 2) * DEGREE;
 	normalize_angle(&d->ray_angle);
 	while (i < WIN_WIDTH)
 	{

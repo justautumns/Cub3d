@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lines_check.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 10:58:52 by mtrojano          #+#    #+#             */
-/*   Updated: 2024/08/29 20:58:48 by mtrojano         ###   ########.fr       */
+/*   Updated: 2024/08/30 04:39:54 by mehmeyil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	vertical_line_check(t_data *d)
 
 	start = 0;
 	_tan = -tan(d->ray_angle);
-	if (d->ray_angle > PI / 2 && d->ray_angle < (3 * PI / 2)) // looking left
+	if (d->ray_angle > PI / 2 && d->ray_angle < (3 * PI / 2))
 	{
 		d->ray_x = (((int)d->player_x / TILE_SIZE) * TILE_SIZE) - 0.001;
 		d->ray_y = (d->player_x - d->ray_x) * _tan + d->player_y;
@@ -53,7 +53,7 @@ void	vertical_line_check(t_data *d)
 		d->y_offset = -d->x_offset * _tan;
 		d->ray_direction = 2;
 	}
-	else if (d->ray_angle < PI / 2 || d->ray_angle > (3 * PI / 2)) // looking right
+	else if (d->ray_angle < PI / 2 || d->ray_angle > (3 * PI / 2))
 	{
 		d->ray_x = (((int)d->player_x / TILE_SIZE) * TILE_SIZE) + TILE_SIZE;
 		d->ray_y = (d->player_x - d->ray_x) * _tan + d->player_y;
@@ -99,7 +99,7 @@ void	horizontal_line_check(t_data *d)
 
 	start = 0;
 	_tan = -1 / tan(d->ray_angle);
-	if (d->ray_angle > PI) // looking up
+	if (d->ray_angle > PI)
 	{
 		d->ray_y = (((int)d->player_y / TILE_SIZE) * TILE_SIZE) - 0.001;
 		d->ray_x = (d->player_y - d->ray_y) * _tan + d->player_x;
@@ -107,7 +107,7 @@ void	horizontal_line_check(t_data *d)
 		d->x_offset = -d->y_offset * _tan;
 		d->ray_direction = 0;
 	}
-	else if (d->ray_angle < PI) // looking down
+	else if (d->ray_angle < PI)
 	{
 		d->ray_y = (((int)d->player_y / TILE_SIZE) * TILE_SIZE) + TILE_SIZE;
 		d->ray_x = (d->player_y - d->ray_y) * _tan + d->player_x;

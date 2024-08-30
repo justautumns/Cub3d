@@ -6,7 +6,7 @@
 /*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 11:27:29 by mtrojano          #+#    #+#             */
-/*   Updated: 2024/08/30 01:06:55 by mehmeyil         ###   ########.fr       */
+/*   Updated: 2024/08/30 02:45:05 by mehmeyil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@
 #define FOV 60
 #define MOVE_SPEED 2
 #define DIST_FROM_WALL 15
-#define ROTATION_SPEED DEGREE * 0.5
-#define ROTATION_SPEED_W DEGREE * 2
+#define ROTATION_SPEED 0.00872665
+#define ROTATION_SPEED_W 0.02617995
 
 typedef struct tex
 {
@@ -67,12 +67,12 @@ typedef struct keys
 
 typedef struct colors
 {
-	int	f_r; //floor red
-	int	f_g; // floor green
-	int	f_b; // floor blue
-	int	c_r; // ceiling red
-	int	c_g; // ceiling green
-	int	c_b; // ceiling blue
+	int	f_r;
+	int	f_g;
+	int	f_b;
+	int	c_r;
+	int	c_g;
+	int	c_b;
 }	t_colors;
 
 typedef struct data
