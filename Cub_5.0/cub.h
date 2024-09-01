@@ -6,7 +6,7 @@
 /*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 11:27:29 by mtrojano          #+#    #+#             */
-/*   Updated: 2024/08/30 21:10:24 by mtrojano         ###   ########.fr       */
+/*   Updated: 2024/09/01 02:47:46 by mtrojano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ typedef struct data
 	int			floor_color;
 	int			map_x;
 	int			map_y;
+	int			stop_ray;
 	int			map_max_width;
 	int			map_max_height;
 	int			img_x;

@@ -6,7 +6,7 @@
 /*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 00:16:20 by mehmeyil          #+#    #+#             */
-/*   Updated: 2024/08/31 22:09:56 by mtrojano         ###   ########.fr       */
+/*   Updated: 2024/09/01 00:12:28 by mtrojano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,15 +67,13 @@ int	arg_validation_map(t_data *d, char *str)
 
 int	check_line(char *line, t_data *d, int fd)
 {
-	// (void)line;
-	// (void)d;
-	// return (-1);
 	if (line && ft_strncmp(line, "Error", 5) == 0)
 		return (-1);
 	if (line && ft_strncmp(line, "\n", 1) != 0)
 	{
 		if (just_spaces(line) == 0)
-			return (free(line), finish_reading(fd), ft_error("There can't be spaces between arguments\n"));
+			return (free(line), finish_reading(fd),
+				ft_error("There can't be spaces between arguments\n"));
 		if (arg_validation_map(d, line) == -1)
 			return (free(line), finish_reading(fd), -1);
 	}
@@ -91,22 +89,21 @@ int	get_actual_map(t_data *d, int fd, char *line)
 	if (line && ft_strncmp(line, "Error", 5) == 0)
 		return (ft_error("Error: malloc failed\n"));
 	map_line = ft_strdup(line);
-	// free(line);
 	if (!map_line)
 		return (finish_reading(fd), ft_error("Error: malloc failed\n"));
 	while (map_line)
 	{
 		if (check_before_map(map_line) == -1)
-			return (free(map_line), finish_reading(fd), ft_error("Too many elements in map\n")); // added finish reading
+			return (free(map_line), finish_reading(fd), ft_error("Too many elements in map\n"));
 		d->map = add_to_array(d->map, map_line);
 		if (!d->map)
-			return (free(map_line), finish_reading(fd), ft_error("Error: malloc failed\n")); // added finish reading
+			return (free(map_line), finish_reading(fd), ft_error("Error: malloc failed\n"));
 		free(map_line);
 		if (check_empty_line_betweeen(d->map) == -1)
 			return (ft_error("Map cannot be separated by new lines\n"));
 		map_line = get_next_line(fd);
 		if (map_line && ft_strncmp(map_line, "Error", 5) == 0)
-			return (ft_error("Error: malloc failed\n")); // ret_line from get_next_line.c
+			return (ft_error("Error: malloc failed\n"));
 	}
 	return (free(map_line), 0);
 }
@@ -125,23 +122,17 @@ int	read_from_map(int fd, t_data *d)
 	{
 		if (check_line(line, d, fd) == -1)
 			return (-1);
-			//return (free(line), finish_reading(fd), -1); // free of "Error" from gnl is invalid cause "Error" is not allocated memory
 		free(line);
-		line = get_next_line(fd); //WHEN THIS READS THE LAST TIME I DONT CHECK IF IT FAILED OR NOT... DUH... 
+		line = get_next_line(fd);
 		if (line && ft_strncmp(line, "Error", 5) == 0)
 			return (ft_error("Error: malloc failed\n"));
 	}
 	line2 = skip_nl_before_map(fd, line);
-	free(line);
 	if (!line2)
-		return (finish_reading(fd), -1);
+		return (free(line), -1);
 	if (line2 && ft_strncmp(line2, "Error", 5) == 0)
-		return (ft_error("Error: malloc failed\n"));
+		return (free(line), ft_error("Error: malloc failed\n"));
 	if (get_actual_map(d, fd, line2) == -1)
-		return (free(line2), -1);
-		//return (free(line2), finish_reading(fd), -1);
-	free(line2);
-	//finish_reading(fd);
-	get_map_size(d);
-	return (0);
+		return (free(line), free(line2), -1);
+	return (free(line), free(line2), get_map_size(d), 0);
 }

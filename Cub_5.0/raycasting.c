@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 11:16:23 by mtrojano          #+#    #+#             */
-/*   Updated: 2024/08/30 04:43:10 by mehmeyil         ###   ########.fr       */
+/*   Updated: 2024/09/01 02:49:44 by mtrojano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,8 @@ void	cast_rays(t_data *d)
 		vertical_line_check(d);
 		determine_closer_contact_point(d);
 		d->ray_direction = determine_texture(d);
-		draw_tex_slice(d, i, d->ray_direction);
+		if (d->tex_slice_height >= 1)
+			draw_tex_slice(d, i, d->ray_direction);
 		d->ray_angle += ray_step;
 		normalize_angle(&d->ray_angle);
 		i++;

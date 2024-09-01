@@ -6,7 +6,7 @@
 /*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 16:58:07 by mtrojano          #+#    #+#             */
-/*   Updated: 2024/08/31 22:05:47 by mtrojano         ###   ########.fr       */
+/*   Updated: 2024/09/01 00:17:07 by mtrojano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static char	*find_new_line(int fd, char *storage)
 	return (free(read_part), storage);
 }
 
-static char	*new_line(char *storage)
+static char	*new_line(char *storage, int *end)
 {
 	char	*temp;
 	int		pos;
@@ -58,7 +58,10 @@ static char	*new_line(char *storage)
 	pos = 0;
 	len = get_nl_pos(storage);
 	if (storage[0] == '\0')
+	{
+		(*end)++;
 		return (NULL);
+	}
 	if (storage[len] == '\n')
 		len++;
 	temp = malloc(len + 1);
@@ -104,15 +107,18 @@ char	*get_next_line(int fd)
 {
 	static char	*storage;
 	char		*ret_line;
+	static int	end;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return ("Error");
 	storage = find_new_line(fd, storage);
 	if (storage == NULL)
 		return ("Error");
-	ret_line = new_line(storage);
-	// if (!ret_line)
-	// 	return (free(storage), "Error");
+	ret_line = new_line(storage, &end);
+	if (!ret_line && end == 0)
+		return (free(storage), "Error");
+	else if (!ret_line && end == 1)
+		return (free(storage), NULL);
 	storage = storage_update(storage);
 	return (ret_line);
 }

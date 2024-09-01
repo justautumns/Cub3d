@@ -6,7 +6,7 @@
 /*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 07:12:30 by mtrojano          #+#    #+#             */
-/*   Updated: 2024/08/31 21:43:44 by mtrojano         ###   ########.fr       */
+/*   Updated: 2024/09/01 02:47:59 by mtrojano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	init_stuff(t_data *d)
 	d->colors->f_r = -1;
 	d->map_y = 0;
 	d->map_x = 0;
+	d->stop_ray = 0;
 	d->image = NULL;
 	d->img_addr = NULL;
 }

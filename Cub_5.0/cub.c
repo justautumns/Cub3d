@@ -6,7 +6,7 @@
 /*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 11:27:10 by mtrojano          #+#    #+#             */
-/*   Updated: 2024/08/31 22:03:03 by mtrojano         ###   ########.fr       */
+/*   Updated: 2024/09/01 00:19:13 by mtrojano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,57 +50,28 @@ int	do_checks(int ac, char **av, t_data *d)
 	return (0);
 }
 
-int	gnl_check(void)
-{
-	int	fd;
-	char *line;
-
-	line = NULL;
-	fd = open("maps/map1.cub", O_RDONLY);
-	if (fd < 1)
-		return (ft_error("File cannot be opened\n"));
-	line = get_next_line(fd);
-	if (!line)
-		return (ft_error("Error: Map is empty\n"));
-	if (line && ft_strncmp(line, "Error", 5) == 0)
-			return (ft_error("Error: malloc failed\n"));
-	while (line)
-	{
-		free(line);
-		line = get_next_line(fd);
-		if (line && ft_strncmp(line, "Error", 5) == 0)
-			return (ft_error("Error: malloc failed\n"));
-	}
-	close(fd);
-	return (0);
-}
-
 int	main(int ac, char **av)
 {
 	t_data	d;
 
-	// if (init_all(&d) == -1)
-	// 	return (free_all(&d), ft_error("Error: malloc failed\n"));
-	// //gnl_check();
 	if (do_checks(ac, av, &d) == -1)
 		return (-1);
-	return (free_all(&d), printf("let's see: no_path: %s\n", d.tex->no_path), ft_error("Our nuce interruptor\n"));
-	// d.root = mlx_init();
-	// if (!d.root)
-	// 	return (free_all(&d), ft_error("Error : mlx init fails\n"));
-	// d.window = mlx_new_window(d.root, WIN_WIDTH, WIN_HEIGHT, "Cub3D");
-	// if (!d.window)
-	// 	return (free_all(&d), ft_error("Error : mlx window call fails\n"));
-	// d.floor_color = get_color_from_rgb(d.colors->f_r,
-	// 		d.colors->f_g, d.colors->f_b);
-	// d.ceiling_color = get_color_from_rgb(d.colors->c_r,
-	// 		d.colors->c_g, d.colors->c_b);
-	// if (get_tex_data(&d) == -1)
-	// 	return (free_all(&d), -1);
-	// draw_map(&d);
-	// mlx_hook(d.window, KeyPress, KeyPressMask, handle_key_press, &d);
-	// mlx_hook(d.window, KeyRelease, KeyReleaseMask, release_key, &d);
-	// mlx_hook(d.window, 17, 0, quit, &d);
-	// mlx_loop_hook(d.root, move_player, &d);
-	// mlx_loop(d.root);
+	d.root = mlx_init();
+	if (!d.root)
+		return (free_all(&d), ft_error("Error : mlx init fails\n"));
+	d.window = mlx_new_window(d.root, WIN_WIDTH, WIN_HEIGHT, "Cub3D");
+	if (!d.window)
+		return (free_all(&d), ft_error("Error : mlx window call fails\n"));
+	d.floor_color = get_color_from_rgb(d.colors->f_r,
+			d.colors->f_g, d.colors->f_b);
+	d.ceiling_color = get_color_from_rgb(d.colors->c_r,
+			d.colors->c_g, d.colors->c_b);
+	if (get_tex_data(&d) == -1)
+		return (free_all(&d), -1);
+	draw_map(&d);
+	mlx_hook(d.window, KeyPress, KeyPressMask, handle_key_press, &d);
+	mlx_hook(d.window, KeyRelease, KeyReleaseMask, release_key, &d);
+	mlx_hook(d.window, 17, 0, quit, &d);
+	mlx_loop_hook(d.root, move_player, &d);
+	mlx_loop(d.root);
 }

@@ -6,7 +6,7 @@
 /*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 20:53:41 by mtrojano          #+#    #+#             */
-/*   Updated: 2024/08/31 22:07:17 by mtrojano         ###   ########.fr       */
+/*   Updated: 2024/09/01 00:07:34 by mtrojano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*skip_nl_before_map(int fd, char *line)
 		return (ft_error("Error: malloc failed\n"), NULL);
 	skip_line = ft_strdup(line);
 	if (!skip_line)
-		return (ft_error("Error: malloc failed\n"), NULL); // was here : free(line), finish_reading(fd),
+		return (finish_reading(fd), ft_error("Error: malloc failed\n"), NULL);
 	while (skip_line && skip_line[0] == '\n')
 	{
 		free(skip_line);

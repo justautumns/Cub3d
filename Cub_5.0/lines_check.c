@@ -3,14 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   lines_check.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mehmeyil <mehmeyil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 10:58:52 by mtrojano          #+#    #+#             */
-/*   Updated: 2024/08/30 04:39:54 by mehmeyil         ###   ########.fr       */
+/*   Updated: 2024/09/01 03:03:48 by mtrojano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
+
+int	check_655(t_data *d, int option)
+{
+	int	y;
+	int	x;
+
+	y = d->player_y - d->map_y;
+	x = d->player_x - d->map_x;
+	if (y < 0)
+		y *= -1;
+	if (x < 0)
+		x *= -1;
+	if (option == 1)
+	{
+		if (y >= 150)
+			return (1);
+		return (0);
+	}
+	if (x >= 150)
+		return (2);
+	return (0);
+}
 
 void	get_distance_vertical(t_data *d, int start)
 {
@@ -20,6 +42,13 @@ void	get_distance_vertical(t_data *d, int start)
 		d->map_y = (int)(d->ray_y) / TILE_SIZE;
 		if (check_if_outside_v(d) == -1)
 			return ;
+		if (check_655(d, 2) == 2)
+		{
+			d->dist_v = distance(d->player_x, d->player_y, d->ray_x, d->ray_y);
+			d->vertical_x = d->ray_x;
+			d->vertical_y = d->ray_y;
+			break ;
+		}
 		if (d->map_x >= 0 && d->map_y >= 0 && d->map_x < d->map_max_width
 			&& d->map_y < d->map_max_height
 			&& d->map[d->map_y][d->map_x] == '1')
@@ -74,6 +103,13 @@ void	get_distance_horizontal(t_data *d, int start)
 		d->map_y = (int)(d->ray_y) / TILE_SIZE;
 		if (check_if_outside_h(d) == -1)
 			return ;
+		if (check_655(d, 1) == 1)
+		{
+			d->dist_h = distance(d->player_x, d->player_y, d->ray_x, d->ray_y);
+			d->horizontal_x = d->ray_x;
+			d->horizontal_y = d->ray_y;
+			break ;
+		}
 		if (d->map_x >= 0 && d->map_y >= 0 && d->map_x < d->map_max_width
 			&& d->map_y < d->map_max_height
 			&& d->map[d->map_y][d->map_x] == '1')
