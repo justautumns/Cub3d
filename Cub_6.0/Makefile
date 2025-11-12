@@ -12,12 +12,13 @@ OBJECTS = ${SOURCES:.c=.o}
 
 LIBFT = ./Libft/libft.a
 
-INCLUDE = -I./libft
+INCLUDE = -I./libft -I./mlx
 
 all: $(NAME)
 
 $(NAME): $(OBJECTS)
 	make -C ./Libft
+	$(MAKE) -C ./mlx
 	$(CC) -o $(NAME) $(OBJECTS) $(LIBFT) -L ./mlx -lmlx -lXext -lX11 -lm -lz -L/usr/include -Imlx
 
 %.o: %.c

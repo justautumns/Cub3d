@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtrojano <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mehmeyil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 11:27:29 by mtrojano          #+#    #+#             */
-/*   Updated: 2024/09/03 03:46:09 by mtrojano         ###   ########.fr       */
+/*   Updated: 2024/09/05 17:49:05 by mehmeyil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./Libft/libft.h"
-#include <mlx.h>
+#include "./mlx/mlx.h"
 #include <X11/keysym.h>
 #include <stdio.h>
 #include <math.h>
