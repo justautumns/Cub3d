@@ -18,7 +18,7 @@ This project is a deep dive into:
 - Efficient rendering in C  
 
 ---
-
+./Texture.png
 ## 🧩 Features
 
 - Real-time **raycasting engine**  
@@ -54,5 +54,4 @@ Each map file defines the world layout and textures.
 mak
 RUN
 ./cub3D maps/map.cub
-[ Example: ./Texture.png ]
 
