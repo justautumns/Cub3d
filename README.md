@@ -18,7 +18,6 @@ This project is a deep dive into:
 - Efficient rendering in C  
 
 ---
-![Texture Preview](./Texture.png)
 ## 🧩 Features
 
 - Real-time **raycasting engine**  
@@ -40,6 +39,7 @@ Each map file defines the world layout and textures.
 - `1` = wall, `0` = empty space, `N/S/E/W` = player start direction  
 
 ---
+![Texture Preview](./Texture.png)
 
 ## ⚙️ Installation
 
