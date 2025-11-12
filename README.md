@@ -18,7 +18,7 @@ This project is a deep dive into:
 - Efficient rendering in C  
 
 ---
-./Texture.png
+![Texture Preview](./Texture.png)
 ## 🧩 Features
 
 - Real-time **raycasting engine**  
